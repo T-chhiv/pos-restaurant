@@ -1,0 +1,200 @@
+<section class="container">
+
+  <!-- =========================
+       LEFT SIDE - BRAND
+  ========================== -->
+  <div class="login-brand">
+
+    <div class="brand-content">
+
+      <!-- Restaurant Icon -->
+      <div class="brand-icon">
+        <mat-icon>restaurant</mat-icon>
+      </div>
+
+      <!-- Title -->
+      <h1>POS Restaurant</h1>
+
+      <!-- Description -->
+      <p>
+        Manage your restaurant orders, tables, employees,
+        and payments in one place.
+      </p>
+
+      <!-- Features -->
+      <div class="features">
+
+        <div class="feature">
+          <mat-icon>point_of_sale</mat-icon>
+
+          <span>
+            Easy order management
+          </span>
+        </div>
+
+        <div class="feature">
+          <mat-icon>table_restaurant</mat-icon>
+
+          <span>
+            Table management
+          </span>
+        </div>
+
+        <div class="feature">
+          <mat-icon>analytics</mat-icon>
+
+          <span>
+            Sales & reports
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       RIGHT SIDE - LOGIN
+  ========================== -->
+  <div class="login-container">
+
+    <div class="login-card">
+      <!-- Login Header -->
+      <div class="login-header">
+        <!-- Only appears on mobile -->
+        <div class="mobile-logo">
+          <mat-icon>restaurant</mat-icon>
+        </div>
+        <h2>Welcome</h2>
+        <p>
+          Sign in to your restaurant account
+        </p>
+      </div>
+
+
+      <!-- Login Form -->
+      <form [formGroup]="form" (ngSubmit)="logIn()">
+        <!-- Username -->
+        <mat-form-field
+          appearance="outline"
+          class="full-width"
+        >
+          <mat-label>Username</mat-label>
+
+          <mat-icon matPrefix>
+            person
+          </mat-icon>
+
+          <input
+            matInput
+            type="text"
+            placeholder="Username"
+            formControlName="username"
+          />
+
+          @if (
+            form.get('username')?.hasError('required') &&
+            form.get('username')?.touched
+          ) {
+            <mat-error>
+              Username is required
+            </mat-error>
+          }
+
+          @if (form.get('username')?.hasError('incorrectLogin')) {
+            <mat-error>
+              Incorrect username or password
+            </mat-error>
+          }
+        </mat-form-field>
+
+
+        <!-- Password -->
+        <mat-form-field
+          appearance="outline"
+          class="full-width"
+        >
+          <mat-label>Password</mat-label>
+
+          <mat-icon matPrefix>
+            lock
+          </mat-icon>
+
+          <input
+            matInput
+            [type]="isVisible ? 'text' : 'password'"
+            placeholder="Password"
+            formControlName="password"
+          />
+
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            [attr.aria-label]="
+              isVisible ? 'Hide password' : 'Show password'
+            "
+            (click)="checkPasswordVisible()"
+          >
+            <mat-icon>
+              {{ isVisible ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </button>
+
+          @if (
+            form.get('password')?.hasError('required') &&
+            form.get('password')?.touched
+          ) {
+            <mat-error>
+              Password is required
+            </mat-error>
+          }
+
+          @if (form.get('password')?.hasError('incorrectLogin')) {
+            <mat-error>
+              Incorrect username or password
+            </mat-error>
+          }
+        </mat-form-field>
+      
+
+        <!-- Remember / Forgot Password -->
+        <!-- <div class="login-options">
+
+          <mat-checkbox>
+            Remember me
+          </mat-checkbox>
+
+          <a href="#">
+            Forgot password?
+          </a>
+
+        </div> -->
+
+
+        <!-- Login Button -->
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          class="login-button"
+        >
+          <mat-icon>
+            login
+          </mat-icon>
+          Login
+        </button>
+      </form>
+
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <p>
+          © 2026 POS Restaurant
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
