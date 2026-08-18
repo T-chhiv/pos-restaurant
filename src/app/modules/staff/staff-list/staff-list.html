@@ -1,1 +1,299 @@
-<p>staff-list works!</p>
+<section class="p-3 sm:p-4 lg:p-6">
+
+    <!-- ==================== Header ==================== -->
+    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+        <!-- Title -->
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800">
+                Staff List
+            </h2>
+            <p class="text-sm text-gray-500">
+                Manage your restaurant staff
+            </p>
+        </div>
+
+        <!-- Search + Add -->
+        <form [formGroup]="form" class="w-full sm:w-auto">
+            <div class="flex w-full items-baseline gap-2">
+
+                <!-- Search -->
+                <mat-form-field
+                    appearance="outline"
+                    class="w-full sm:w-[280px] lg:w-[320px]"
+                >
+                    <mat-label>Search staff</mat-label>
+
+                    <input
+                        matInput
+                        type="text"
+                        placeholder="Search by name..."
+                        formControlName="name"
+                    >
+
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <!-- Add -->
+                <button
+                    type="button"
+                    mat-icon-button
+                    class="add-button !h-14 !w-14 shrink-0 border-[1px]"
+                    matTooltip="Add staff"
+                    (click)="openDialog()"
+                >
+                    <mat-icon>add</mat-icon>
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+
+
+    <!-- ==================== Table Card ==================== -->
+    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+
+        <!-- Table Wrapper -->
+        <div class="min-h-[500px] overflow-x-auto">
+
+            <table
+                mat-table
+                [dataSource]="dataSource"
+                class="min-w-[1400px] w-full"
+            >
+
+                <!-- No -->
+                <ng-container matColumnDef="no">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        class="!whitespace-nowrap"
+                    >
+                        No
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff; let i = index">
+                        {{ i + 1 + (paginator.pageIndex * paginator.pageSize) }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Image -->
+                <ng-container matColumnDef="img">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Image
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        <img
+                            class="h-10 w-10 rounded-full object-cover ring-2 ring-gray-100"
+                            [src]="staff.avatar || 'images/user.jpg'"
+                            width="40"
+                            height="40"
+                            alt="Employee"
+                        >
+                    </td>
+                </ng-container>
+
+
+                <!-- Name -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Name
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        <div class="flex flex-col">
+                            <span class="font-medium text-gray-800">
+                                {{ staff.firstName }} {{ staff.lastName }}
+                            </span>
+
+                            <span class="text-xs text-gray-400">
+                                {{ staff.username }}
+                            </span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Phone -->
+                <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Phone
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        {{ staff.phone }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Gender -->
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Gender
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        {{ staff.gender }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Date of Birth -->
+                <ng-container matColumnDef="dateOfBirth">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Date of Birth
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        {{ staff.dateOfBirth }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Role -->
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Role
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        {{ getRoleNameById(staff.roleId) }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Department -->
+                <ng-container matColumnDef="department">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Department
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        {{ getDepartmentNameById(staff.departmentId) }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Position -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Position
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        {{ getPositionNameById(staff.positionId) }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Salary -->
+                <ng-container matColumnDef="salary">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Salary
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        ${{ staff.salary }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Hire Date -->
+                <ng-container matColumnDef="hireDate">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Hire Date
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+                        {{ staff.hireDate }}
+                    </td>
+                </ng-container>
+
+
+                <!-- Status -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Status
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+
+                        <span
+                            class="inline-flex rounded-full px-3 py-1 text-xs font-medium"
+                            [ngClass]="{
+                                'bg-green-100 text-green-700': staff.status === 'Active',
+                                'bg-red-100 text-red-700': staff.status === 'Inactive'
+                            }"
+                        >
+                            {{ staff.status }}
+                        </span>
+
+                    </td>
+                </ng-container>
+
+
+                <!-- Action -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Action
+                    </th>
+
+                    <td mat-cell *matCellDef="let staff">
+
+                        <div class="flex items-center gap-1">
+
+                            <button
+                                mat-icon-button
+                                class="!text-blue-600"
+                                matTooltip="Edit"
+                                (click)="openDialog(staff.id)"
+                            >
+                                <mat-icon>edit</mat-icon>
+                            </button>
+
+                            <button
+                                mat-icon-button
+                                class="!text-red-600"
+                                matTooltip="Delete"
+                                (click)="remove(staff.id)"
+                            >
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Header -->
+                <tr
+                    mat-header-row
+                    *matHeaderRowDef="displayedColumns"
+                    class="!h-14"
+                ></tr>
+
+
+                <!-- Rows -->
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns;"
+                    class="!h-16 transition-colors hover:bg-gray-50"
+                ></tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- Paginator -->
+        <div class="border-t border-gray-200 bg-white">
+            <mat-paginator
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                showFirstLastButtons
+            ></mat-paginator>
+        </div>
+
+    </div>
+
+</section>

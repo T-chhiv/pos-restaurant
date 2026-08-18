@@ -1,16 +1,37 @@
 export interface Employee {
   id: number;
-  employeeCode: string;
   firstName: string;
   lastName: string;
   username: string;
   password: string;
-  email: string;
   phone: string;
   gender: string;
-  position: string;
-  department: string;
+  dateOfBirth: string;
+
+  roleId: number;
+  departmentId: number;
+  positionId: number;
+
   salary: number;
-  status: string;
   hireDate: string;
+  status: string;
+  photo: string;
+}
+
+export interface Role{
+  id: number,
+  name: string,
+  description: string
+}
+
+export interface Department{
+  id: number,
+  name: string,
+  description: string
+}
+
+export interface Position{
+  id: number,
+  name: string,
+  description: string
 }

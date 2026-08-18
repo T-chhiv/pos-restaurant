@@ -1,0 +1,56 @@
+:host {
+    --primary-teal: #f59e0b;
+    --light-teal: #e6f4f1;
+    --bg-gray: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+/* Table */
+.mat-mdc-table {
+    background: white;
+}
+
+/* Table header */
+.mat-mdc-header-row {
+    background-color: var(--primary-teal) !important;
+}
+
+.mat-mdc-header-cell {
+    background-color: var(--primary-teal) !important;
+    color: white !important;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+
+    border-bottom: none !important;
+}
+
+/* Table body */
+.mat-mdc-cell {
+    color: var(--text-dark);
+    font-size: 14px;
+    border-bottom-color: var(--border-color);
+}
+
+/* Row hover */
+.mat-mdc-row {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: var(--light-teal) !important;
+    }
+}
+
+/* Paginator */
+.mat-mdc-paginator {
+    background: white;
+    border-top: 1px solid var(--border-color);
+}
+
+.add-button {
+  color: var(--mat-sys-primary);
+}
