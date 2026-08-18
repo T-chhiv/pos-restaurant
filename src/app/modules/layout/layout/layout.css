@@ -1,237 +1,577 @@
-/* Custom CSS Variables */
+/* =========================================================
+   CUSTOM CSS VARIABLES
+   ========================================================= */
 :host {
-  --primary-teal: #0d9488;
-  --light-teal: #e6f4f1;
+  --primary: #f59e0b;
+  --primary-light: #fff7e6;
+
   --bg-gray: #f8fafc;
   --text-dark: #1e293b;
   --text-muted: #64748b;
   --border-color: #e2e8f0;
+
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
+
 /* =========================================================
-   1. ANGULAR MATERIAL INNER DRAWER OVERRIDES
+   1. SIDENAV CONTAINER
    ========================================================= */
-/* Convert internal mat-sidenav wrapper into a full-height flex column */
+
+.sidenav-container {
+  width: 100%;
+  height: 100dvh;
+
+  background-color: var(--bg-gray);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   2. SIDEBAR
+   ========================================================= */
+
+.app-sidenav {
+  width: 240px;
+
+  background-color: #ffffff;
+
+  border-right: 1px solid var(--border-color);
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+
+/*
+ * Angular Material's internal drawer container
+ *
+ * This makes the sidebar a flex column:
+ *
+ * ┌──────────────────┐
+ * │      LOGO        │ fixed
+ * ├──────────────────┤
+ * │                  │
+ * │   NAVIGATION     │ scrollable
+ * │                  │
+ * ├──────────────────┤
+ * │ SETTINGS         │
+ * │ HELP             │ fixed
+ * │ LOGOUT           │ fixed
+ * └──────────────────┘
+ */
 ::ng-deep .app-sidenav .mat-drawer-inner-container {
   display: flex !important;
   flex-direction: column !important;
+
   height: 100% !important;
-  overflow: hidden !important; /* Prevents whole sidebar horizontal/vertical scroll */
+  min-height: 0 !important;
+
+  overflow: hidden !important;
 }
 
-.sidenav-container {
-  height: 100vh;
-  background-color: var(--bg-gray);
-}
-
-/* Base Side Navigation */
-.app-sidenav {
-  width: 240px;
-  background: #ffffff;
-  border-right: 1px solid var(--border-color);
-  overflow-x: hidden; /* Guarantees no horizontal scrollbar */
-}
 
 /* =========================================================
-   2. BRAND LOGO (FIXED AT TOP)
+   3. BRAND LOGO
    ========================================================= */
-.app-sidenav .brand-logo {
-  flex-shrink: 0;
+
+.brand-logo {
+  flex: 0 0 auto;
+
   display: flex;
   align-items: center;
+
   gap: 12px;
-  padding: 24px 20px;
+
+  padding: 22px 20px;
+
+  box-sizing: border-box;
 }
 
-.app-sidenav .brand-logo .logo-icon {
-  background: var(--primary-teal);
-  color: #ffffff;
+
+/* Logo icon */
+
+.logo-icon {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+
+  flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: var(--primary);
+  color: #ffffff;
 }
 
-.app-sidenav .brand-logo .brand-name {
+
+.logo-icon mat-icon {
+  width: 20px;
+  height: 20px;
+
+  font-size: 20px;
+}
+
+
+/* Brand name */
+
+.brand-name {
   display: flex;
   flex-direction: column;
-  font-weight: 700;
+
   line-height: 1.1;
 }
 
-.app-sidenav .brand-logo .brand-name .title {
+
+.brand-name .title {
   font-size: 16px;
+  font-weight: 700;
+
   color: var(--text-dark);
 }
 
-.app-sidenav .brand-logo .brand-name .subtitle {
-  font-size: 14px;
+
+.brand-name .subtitle {
+  margin-top: 3px;
+
+  font-size: 13px;
+  font-weight: 500;
+
   color: var(--text-muted);
 }
+
 
 /* =========================================================
-   3. MIDDLE NAVIGATION LINKS (SCROLLABLE VERTICALLY)
+   4. MIDDLE NAVIGATION
    ========================================================= */
-.app-sidenav .nav-list {
-  flex: 1 1 auto; /* Expands to fill available space between logo & settings */
-  overflow-y: auto; /* Scroll vertically if items overflow */
-  overflow-x: hidden; /* Disable horizontal scrolling */
-  padding-top: 10px;
-}
 
-/* Navigation List Items Styling */
-.app-sidenav .nav-list a,
-.app-sidenav .bottom-nav a {
-  margin: 4px 12px;
-  width: calc(100% - 24px); /* Fits width perfectly to prevent overflow */
+.nav-list {
+  flex: 1 1 auto;
+
+  min-height: 0;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  padding: 10px 0;
+
   box-sizing: border-box;
+}
+
+
+/* Navigation links */
+
+.nav-list a,
+.bottom-nav a {
+  width: calc(100% - 24px);
+
+  margin: 4px 12px;
+
+  box-sizing: border-box;
+
   border-radius: 8px;
+
   color: var(--text-muted);
+
   font-weight: 500;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
-.app-sidenav .nav-list a:hover,
-.app-sidenav .bottom-nav a:hover {
+
+/* Hover */
+
+.nav-list a:hover,
+.bottom-nav a:hover {
   background-color: #f1f5f9;
+
+  color: var(--text-dark);
 }
 
-.app-sidenav .nav-list a.active-link {
-  background-color: var(--light-teal);
-  color: var(--primary-teal);
+
+/* Active link */
+
+.nav-list a.active-link {
+  background-color: var(--primary-light);
+
+  color: var(--primary);
 }
 
-.app-sidenav .nav-list a.active-link mat-icon {
-  color: var(--primary-teal);
+
+.nav-list a.active-link mat-icon {
+  color: var(--primary);
 }
 
-/* Custom Slim Scrollbar for Middle Menu */
-.app-sidenav .nav-list::-webkit-scrollbar {
+
+/* =========================================================
+   5. SIDEBAR SCROLLBAR
+   ========================================================= */
+
+.nav-list::-webkit-scrollbar {
   width: 5px;
 }
 
-.app-sidenav .nav-list::-webkit-scrollbar-thumb {
+
+.nav-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.nav-list::-webkit-scrollbar-thumb {
   background-color: #cbd5e1;
+
   border-radius: 10px;
 }
 
-/* =========================================================
-   4. BOTTOM SETTINGS & SUPPORT LINKS (PINNED TO BOTTOM)
-   ========================================================= */
-.app-sidenav .bottom-nav {
-  flex-shrink: 0;
-  margin-top: auto; /* Pushes element to the bottom of the column */
-  padding-bottom: 16px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border-color);
-  background: #ffffff;
-}
 
 /* =========================================================
-   5. HEADER / TOOLBAR & CONTENT AREA
+   6. BOTTOM NAVIGATION
    ========================================================= */
+
+.bottom-nav {
+  flex: 0 0 auto;
+
+  margin-top: auto;
+
+  padding: 8px 0 16px;
+
+  border-top: 1px solid var(--border-color);
+
+  background-color: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+/* Remove Material default extra padding */
+
+.bottom-nav mat-nav-list {
+  padding: 0;
+}
+
+
+/* Logout cursor */
+
+.bottom-nav a:last-child {
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   7. MAIN CONTENT AREA
+   ========================================================= */
+
+/*
+ * IMPORTANT:
+ *
+ * The header and page container are children of this element.
+ *
+ * overflow: hidden prevents the whole page from scrolling.
+ */
+.sidenav-content {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   8. HEADER
+   ========================================================= */
+
 .app-header {
-  background: #ffffff;
-  border-bottom: 1px solid var(--border-color);
+  flex: 0 0 70px;
+
+  width: 100%;
   height: 70px;
+
   display: flex;
   align-items: center;
+
   padding: 0 24px;
+
+  background-color: #ffffff;
+
+  border-bottom: 1px solid var(--border-color);
+
   box-shadow: none;
+
+  box-sizing: border-box;
+
+  z-index: 10;
 }
 
-.app-header .spacer {
+
+/* Mobile hamburger */
+
+.app-header > button {
+  margin-right: 8px;
+}
+
+
+/* Header spacer */
+
+.spacer {
   flex: 1 1 auto;
 }
 
-.app-header .header-actions {
+
+/* =========================================================
+   9. HEADER ACTIONS
+   ========================================================= */
+
+.header-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+
+  gap: 12px;
 }
 
-.app-header .header-actions .notification-btn {
-  background: #f8fafc;
-  border-radius: 50%;
+
+/* Notification button */
+
+.notification-btn {
+  background-color: #f8fafc;
+
   border: 1px solid var(--border-color);
+
+  border-radius: 50%;
 }
 
-.app-header .header-actions .user-profile {
+
+/* =========================================================
+   10. USER PROFILE
+   ========================================================= */
+
+.user-profile {
   display: flex;
   align-items: center;
+
   gap: 10px;
-  cursor: pointer;
+
   padding: 4px 8px;
+
   border-radius: 20px;
-  transition: background 0.2s;
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
 }
 
-.app-header .header-actions .user-profile:hover {
+
+.user-profile:hover {
   background-color: #f1f5f9;
 }
 
-.app-header .header-actions .user-profile .avatar {
+
+/* Avatar */
+
+.user-profile .avatar {
   width: 38px;
   height: 38px;
+
+  flex-shrink: 0;
+
   border-radius: 50%;
+
   object-fit: cover;
 }
 
-.app-header .header-actions .user-profile .user-details {
+
+/* User details */
+
+.user-details {
   display: flex;
   flex-direction: column;
+
+  min-width: 0;
 }
 
-.app-header .header-actions .user-profile .user-details .user-name {
+
+.user-name {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-dark);
+
   line-height: 1.2;
-}
 
-.app-header .header-actions .user-profile .user-details .user-role {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.app-header .header-actions .user-profile .dropdown-icon {
-  color: var(--text-muted);
-}
-
-/* Dropdown Menu Inner Header */
-.dropdown-header {
-  padding: 12px 16px;
-  display: flex;
-  flex-direction: column;
-}
-
-.dropdown-header strong {
   color: var(--text-dark);
-  font-size: 14px;
 }
 
-.dropdown-header small {
-  color: var(--text-muted);
+
+.user-role {
+  margin-top: 2px;
+
   font-size: 12px;
+
+  color: var(--text-muted);
 }
 
-/* Main Dashboard Page Container */
-.page-container {
-  padding: 24px;
-  background-color: #f0fdfa; /* Light mint/teal background tint */
-  min-height: calc(100vh - 70px);
+
+.dropdown-icon {
+  color: var(--text-muted);
 }
+
 
 /* =========================================================
-   6. RESPONSIVE MEDIA QUERIES
+   11. USER DROPDOWN HEADER
    ========================================================= */
+
+.dropdown-header {
+  display: flex;
+  flex-direction: column;
+
+  padding: 12px 16px;
+}
+
+
+.dropdown-header strong {
+  font-size: 14px;
+
+  color: var(--text-dark);
+}
+
+
+.dropdown-header small {
+  margin-top: 2px;
+
+  font-size: 12px;
+
+  color: var(--text-muted);
+}
+
+
+/* =========================================================
+   12. PAGE CONTENT
+   ========================================================= */
+
+/*
+ * THIS IS THE ONLY AREA THAT SCROLLS.
+ *
+ * flex: 1
+ *   -> Takes all remaining space below the header.
+ *
+ * min-height: 0
+ *   -> Very important when using flexbox.
+ *      Allows this element to become smaller than
+ *      its content instead of expanding the parent.
+ *
+ * overflow-y: auto
+ *   -> Scroll only when content is taller than the
+ *      available space.
+ */
+.page-container {
+  flex: 1 1 auto;
+
+  min-height: 0;
+
+  width: 100%;
+
+  background-color: var(--bg-gray);
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   13. PAGE CONTENT SCROLLBAR
+   ========================================================= */
+
+.page-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.page-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.page-container::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+
+  border-radius: 10px;
+}
+
+
+.page-container::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+
+/* =========================================================
+   14. RESPONSIVE - TABLET
+   ========================================================= */
+
 @media (max-width: 960px) {
-  .app-header {
-    padding: 0 12px;
-  }
 
   .app-sidenav {
     width: 260px;
+  }
+
+
+  .app-header {
+    flex: 0 0 60px;
+
+    height: 60px;
+
+    padding: 0 12px;
+  }
+
+
+  .page-container {
+    padding: 16px;
+  }
+}
+
+
+/* =========================================================
+   15. RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .app-header {
+    flex: 0 0 60px;
+
+    height: 60px;
+
+    padding: 0 8px;
+  }
+
+
+  .page-container {
+    padding: 12px;
+  }
+
+
+  .header-actions {
+    gap: 4px;
+  }
+
+
+  .user-profile {
+    padding: 2px;
+  }
+
+
+  .dropdown-icon {
+    display: none;
   }
 }

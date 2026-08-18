@@ -1,0 +1,177 @@
+<section class="dialog-container p-[16px]">
+    <div class="dialog-header flex flex-row items-center justify-between mb-[16px]">
+        <div class="title">
+            <h2>{{id ? 'Edit' : 'Create'}}</h2>
+        </div>
+
+        <div>
+            <button
+                type="button"
+                mat-icon-button
+                class="add-button !h-14 !w-14 shrink-0 border-[1px]"
+                matTooltip="Close"
+                (click)="closeDialog()"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="dialog-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <section class="gap-[12px] flex flex-col">
+                 <div class="flex flex-col gap-[12px] sm:flex-row">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>First Name</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            formControlName="firstName"
+                            placeholder="First Name"
+                        >
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Last Name</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            formControlName="lastName"
+                            placeholder="Last Name"
+                        >
+                    </mat-form-field>
+                </div>
+
+                @if (!id) {
+                    <div class="flex flex-col gap-[12px] sm:flex-row">
+                        <mat-form-field appearance="outline" class="w-full">
+                                <mat-label>Username</mat-label>
+                                <input matInput type="text" formControlName="username" placeholder="Username">
+                        </mat-form-field>
+                        
+                        <mat-form-field appearance="outline" class="w-full">
+                                <mat-label>Password</mat-label>
+                                <input matInput type="password" formControlName="password" placeholder="Password">
+                        </mat-form-field>
+                    </div>
+                }
+
+                <div class="flex flex-col gap-[12px] sm:flex-row">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Gender</mat-label>
+                        <mat-select formControlName="gender">
+                            <mat-option value="Male">Male</mat-option>
+                            <mat-option value="Female">Female</mat-option>
+                            <mat-option value="ther">Other</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>phone</mat-label>
+                            <input matInput type="number" formControlName="phone" placeholder="phone">
+                    </mat-form-field>
+                </div>
+
+                <div class="flex flex-col gap-[12px] sm:flex-row">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Department</mat-label>
+                        <mat-select formControlName="departmentId">
+                            @for(department of departments; track department.id){
+                                <mat-option [value]="department.id">{{department.name}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Role</mat-label>
+                        <mat-select formControlName="roleId">
+                            @for(role of roles; track role.id){
+                                <mat-option [value]="role.id">{{role.name}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Position</mat-label>
+                        <mat-select formControlName="positionId">
+                            @for(position of positions; track position.id){
+                                <mat-option [value]="position.id">{{position.name}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+<!-- 
+                <div class="flex flex-col gap-[12px] sm:flex-row">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Hire Date</mat-label>
+
+                        <input
+                            matInput
+                            [matDatepicker]="picker"
+                            formControlName="hireDate"
+                            placeholder="MM/DD/YYYY"
+                        >
+
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="picker">
+                        </mat-datepicker-toggle>
+
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div> -->
+                <!-- <div class="flex flex-col gap-[12px] sm:flex-row">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Hire Date</mat-label>
+
+                        <input
+                            matInput
+                            [matDatepicker]="picker"
+                            formControlName="hireDate"
+                            placeholder="MM/DD/YYYY"
+                        >
+
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="picker">
+                        </mat-datepicker-toggle>
+
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Date of Birth</mat-label>
+
+                        <input
+                            matInput
+                            [matDatepicker]="dobPicker"
+                            formControlName="dateOfBirth"
+                            placeholder="MM/DD/YYYY"
+                        >
+
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="dobPicker">
+                        </mat-datepicker-toggle>
+
+                        <mat-datepicker #dobPicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <div class="flex items-center">
+                        <mat-slide-toggle formControlName="status">
+                            Active
+                        </mat-slide-toggle>
+                    </div>
+                </div> -->
+            </section>
+        </form>
+    </div>
+</section>
+
+<pre>
+    {{form.value  | json}}
+</pre>
