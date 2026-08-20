@@ -14,7 +14,7 @@
       "positionId": 1,
       "salary": 850,
       "hireDate": "2023-01-10",
-      "status": "Active",
+      "status": true,
       "photo": "https://i.pravatar.cc/150?img=12"
     },
     {
@@ -31,7 +31,7 @@
       "positionId": 2,
       "salary": 450,
       "hireDate": "2023-05-18",
-      "status": "Active",
+      "status": true,
       "photo": "https://i.pravatar.cc/150?img=47"
     },
     {
@@ -48,7 +48,7 @@
       "positionId": 3,
       "salary": 350,
       "hireDate": "2024-02-01",
-      "status": "Active",
+      "status": true,
       "photo": "https://i.pravatar.cc/150?img=11"
     },
     {
@@ -65,7 +65,7 @@
       "positionId": 5,
       "salary": 700,
       "hireDate": "2022-11-20",
-      "status": "Active",
+      "status": true,
       "photo": "https://i.pravatar.cc/150?img=13"
     },
     {
@@ -82,7 +82,7 @@
       "positionId": 6,
       "salary": 550,
       "hireDate": "2023-08-15",
-      "status": "Active",
+      "status": true,
       "photo": "https://i.pravatar.cc/150?img=14"
     },
     {
@@ -91,16 +91,16 @@
       "lastName": "Kim",
       "username": "bopha",
       "password": "bopha123",
-      "phone": "+855 88 901 234",
       "gender": "Female",
       "dateOfBirth": "2001-01-25",
       "roleId": 2,
       "departmentId": 2,
       "positionId": 7,
       "salary": 400,
-      "hireDate": "2024-06-03",
-      "status": "Active",
-      "photo": "https://i.pravatar.cc/150?img=44"
+      "status": true,
+      "photo": "https://i.pravatar.cc/150?img=44",
+      "phone": "+855 88 901 234",
+      "hireDate": "2024-06-03"
     },
     {
       "id": 8,
@@ -116,7 +116,7 @@
       "positionId": 3,
       "salary": 350,
       "hireDate": "2024-07-22",
-      "status": "Active",
+      "status": true,
       "photo": "https://i.pravatar.cc/150?img=15"
     },
     {
@@ -133,7 +133,7 @@
       "positionId": 8,
       "salary": 650,
       "hireDate": "2023-09-01",
-      "status": "Active",
+      "status": true,
       "photo": "https://i.pravatar.cc/150?img=48"
     },
     {
@@ -150,59 +150,42 @@
       "positionId": 9,
       "salary": 320,
       "hireDate": "2025-01-15",
-      "status": "Inactive",
+      "status": false,
       "photo": "https://i.pravatar.cc/150?img=49"
     },
     {
-      "id": 8,
-      "firstName": "Piseth",
-      "lastName": "Long",
-      "username": "piseth",
-      "password": "piseth123",
-      "phone": "+855 92 012 345",
+      "id": 11,
+      "firstName": "test",
+      "lastName": "tsest1",
+      "username": "test",
+      "password": "P@ssw0rd",
       "gender": "Male",
-      "dateOfBirth": "1996-10-14",
-      "roleId": 3,
-      "departmentId": 3,
+      "dateOfBirth": "2026-08-20T17:00:00.000Z",
+      "roleId": 2,
+      "departmentId": 2,
       "positionId": 3,
-      "salary": 350,
-      "hireDate": "2024-07-22",
-      "status": "Active",
-      "photo": "https://i.pravatar.cc/150?img=15"
+      "salary": 25,
+      "status": false,
+      "photo": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/66/93/04/caption.jpg?w=800&h=800&s=1",
+      "phone": "09787540975",
+      "hireDate": "2026-08-19T17:00:00.000Z"
     },
     {
-      "id": 9,
-      "firstName": "Sophea",
-      "lastName": "Meas",
-      "username": "sophea",
-      "password": "sophea123",
-      "phone": "+855 77 123 456",
-      "gender": "Female",
-      "dateOfBirth": "1995-03-09",
-      "roleId": 5,
-      "departmentId": 1,
-      "positionId": 8,
-      "salary": 650,
-      "hireDate": "2023-09-01",
-      "status": "Active",
-      "photo": "https://i.pravatar.cc/150?img=48"
-    },
-    {
-      "id": 10,
-      "firstName": "Chantha",
-      "lastName": "Yim",
-      "username": "chantha",
-      "password": "chantha123",
-      "phone": "+855 96 234 567",
-      "gender": "Female",
-      "dateOfBirth": "2002-05-27",
-      "roleId": 6,
+      "firstName": "Test ",
+      "lastName": "require",
+      "username": "Test require",
+      "password": "P@ssw0rd",
+      "gender": "Male",
+      "dateOfBirth": "2026-08-18T17:00:00.000Z",
+      "roleId": 4,
       "departmentId": 3,
-      "positionId": 9,
-      "salary": 320,
-      "hireDate": "2025-01-15",
-      "status": "Inactive",
-      "photo": "https://i.pravatar.cc/150?img=49"
+      "positionId": 4,
+      "salary": 1,
+      "status": false,
+      "photo": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/394360/67bbd0057627fc2244793bcdd09260c2539499cf/header.jpg?t=1787142381",
+      "phone": "23",
+      "hireDate": "2026-08-18T17:00:00.000Z",
+      "id": 16
     }
   ],
   "roles": [

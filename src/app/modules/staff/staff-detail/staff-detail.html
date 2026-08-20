@@ -1,6 +1,6 @@
 <section class="dialog-container p-[16px]">
     <div class="dialog-header flex flex-row items-center justify-between mb-[16px]">
-        <div class="title">
+        <div class="title text-xl font-semibold">
             <h2>{{id ? 'Edit' : 'Create'}}</h2>
         </div>
 
@@ -19,8 +19,39 @@
 
     <div class="dialog-content">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <section class="gap-[12px] flex flex-col">
-                 <div class="flex flex-col gap-[12px] sm:flex-row">
+            <section class="gap-[12px] flex flex-col max-h-[70vh] overflow-y-auto overflow-x-hidden mb-[16px]">
+                <div class="flex flex-col items-center justify-center gap-[12px]">
+                    <div class="flex flex-col items-center justify-center gap-[12px] mt-[12px]">
+                        <img
+                            [src]="currentStaffPhotoLink || 'images/user.jpg'"
+                            alt="Photo"
+                            class="h-30 w-30 rounded-full object-cover border-3 border-[var(--primary-teal)]"
+                        >
+
+                        @if (id) {
+                            <button matButton> <span class="title">Reset Password</span></button>
+                        }
+                    </div>
+
+                    <mat-form-field appearance="outline" class="flex-1 w-full">
+                        <mat-label>Photo Link</mat-label>
+                        <input
+                            matInput
+                            type="url"
+                            formControlName="photo"
+                            placeholder="Photo Link"
+                            required
+                        >
+                        <mat-hint>Enter the image URL</mat-hint>
+                        @if ( form.get('photo')?.hasError('required') && form.get('photo')?.touched ) {
+                            <mat-error>
+                                Photo link is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                
+                <div class="flex flex-col gap-[12px] sm:flex-row">
                     <mat-form-field appearance="outline" class="w-full">
                         <mat-label>First Name</mat-label>
                         <input
@@ -28,7 +59,14 @@
                             type="text"
                             formControlName="firstName"
                             placeholder="First Name"
+                            required
                         >
+
+                        @if ( form.get('firstName')?.hasError('required') && form.get('firstName')?.touched) {
+                            <mat-error>
+                                First Name is required
+                            </mat-error>
+                        }
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="w-full">
@@ -38,7 +76,14 @@
                             type="text"
                             formControlName="lastName"
                             placeholder="Last Name"
+                            required
                         >
+
+                        @if ( form.get('lastName')?.hasError('required') && form.get('lastName')?.touched ) {
+                            <mat-error>
+                                Last Name is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
@@ -46,12 +91,22 @@
                     <div class="flex flex-col gap-[12px] sm:flex-row">
                         <mat-form-field appearance="outline" class="w-full">
                                 <mat-label>Username</mat-label>
-                                <input matInput type="text" formControlName="username" placeholder="Username">
+                                <input matInput type="text" formControlName="username" placeholder="Username" required>
+                                @if ( form.get('username')?.hasError('required') && form.get('username')?.touched ) {
+                                    <mat-error>
+                                        Username is required
+                                    </mat-error>
+                                }
                         </mat-form-field>
                         
                         <mat-form-field appearance="outline" class="w-full">
                                 <mat-label>Password</mat-label>
-                                <input matInput type="password" formControlName="password" placeholder="Password">
+                                <input matInput type="password" formControlName="password" placeholder="Password" required>
+                                @if ( form.get('password')?.hasError('required') && form.get('password')?.touched ) {
+                                    <mat-error>
+                                        Password is required
+                                    </mat-error>
+                                }
                         </mat-form-field>
                     </div>
                 }
@@ -64,12 +119,101 @@
                             <mat-option value="Female">Female</mat-option>
                             <mat-option value="ther">Other</mat-option>
                         </mat-select>
+
+                        @if ( form.get('gender')?.hasError('required') && form.get('gender')?.touched ) {
+                            <mat-error>
+                                Username is required
+                            </mat-error>
+                        }
                     </mat-form-field>
-                    
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Date Of Birth</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="dobPicker"
+                                formControlName="dateOfBirth"
+                                placeholder="MM/DD/YYYY"
+                                required
+                            >
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle
+                                matIconSuffix
+                                [for]="dobPicker">
+                            </mat-datepicker-toggle>
+                        <mat-datepicker #dobPicker></mat-datepicker>
+
+                        @if ( form.get('dateOfBirth')?.hasError('required') && form.get('dateOfBirth')?.touched ) {
+                            <mat-error>
+                                Date Of Birth is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+
+                <div class="flex flex-col gap-[12px] sm:flex-row">
                     <mat-form-field appearance="outline" class="w-full">
                             <mat-label>phone</mat-label>
-                            <input matInput type="number" formControlName="phone" placeholder="phone">
+                            <input
+                                matInput
+                                type="tel"
+                                formControlName="phone"
+                                placeholder="Phone Number"
+                                required
+                            >
+
+                            @if ( form.get('phone')?.hasError('required') && form.get('phone')?.touched ) {
+                                <mat-error>
+                                    Phone Number is required
+                                </mat-error>
+                            }
                     </mat-form-field>
+                </div>
+
+                <div class="flex flex-col gap-[12px] sm:flex-row items-baseline">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Hire Date</mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="hireDatePicker"
+                            formControlName="hireDate"
+                            placeholder="MM/DD/YYYY"
+                            required
+                        >
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="hireDatePicker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #hireDatePicker></mat-datepicker>
+
+                        @if ( form.get('hireDate')?.hasError('required') && form.get('hireDate')?.touched ) {
+                            <mat-error>
+                                Hire Date is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Salary</mat-label>
+                        <input matInput type="number" formControlName="salary" placeholder="salary" required>
+
+                        @if ( form.get('salary')?.hasError('required') && form.get('salary')?.touched ) {
+                            <mat-error>
+                                Salary is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+
+                    <mat-slide-toggle formControlName="status" color="primary">
+                        Status
+                    </mat-slide-toggle>
+
+                    @if ( form.get('status')?.hasError('required') && form.get('status')?.touched ) {
+                        <mat-error>
+                            Status is required
+                        </mat-error>
+                    }
                 </div>
 
                 <div class="flex flex-col gap-[12px] sm:flex-row">
@@ -80,6 +224,12 @@
                                 <mat-option [value]="department.id">{{department.name}}</mat-option>
                             }
                         </mat-select>
+
+                        @if ( form.get('departmentId')?.hasError('required') && form.get('departmentId')?.touched ) {
+                            <mat-error>
+                                Department is required
+                            </mat-error>
+                        }
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="w-full">
@@ -89,6 +239,12 @@
                                 <mat-option [value]="role.id">{{role.name}}</mat-option>
                             }
                         </mat-select>
+
+                        @if ( form.get('roleId')?.hasError('required') && form.get('roleId')?.touched ) {
+                            <mat-error>
+                                Role is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                     
                     <mat-form-field appearance="outline" class="w-full">
@@ -98,80 +254,33 @@
                                 <mat-option [value]="position.id">{{position.name}}</mat-option>
                             }
                         </mat-select>
+
+                        @if ( form.get('positionId')?.hasError('required') && form.get('positionId')?.touched ) {
+                            <mat-error>
+                                Position is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
-<!-- 
-                <div class="flex flex-col gap-[12px] sm:flex-row">
-                    <mat-form-field appearance="outline" class="w-full">
-                        <mat-label>Hire Date</mat-label>
-
-                        <input
-                            matInput
-                            [matDatepicker]="picker"
-                            formControlName="hireDate"
-                            placeholder="MM/DD/YYYY"
-                        >
-
-                        <mat-hint>MM/DD/YYYY</mat-hint>
-
-                        <mat-datepicker-toggle
-                            matIconSuffix
-                            [for]="picker">
-                        </mat-datepicker-toggle>
-
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div> -->
-                <!-- <div class="flex flex-col gap-[12px] sm:flex-row">
-                    <mat-form-field appearance="outline" class="w-full">
-                        <mat-label>Hire Date</mat-label>
-
-                        <input
-                            matInput
-                            [matDatepicker]="picker"
-                            formControlName="hireDate"
-                            placeholder="MM/DD/YYYY"
-                        >
-
-                        <mat-hint>MM/DD/YYYY</mat-hint>
-
-                        <mat-datepicker-toggle
-                            matIconSuffix
-                            [for]="picker">
-                        </mat-datepicker-toggle>
-
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-full">
-                        <mat-label>Date of Birth</mat-label>
-
-                        <input
-                            matInput
-                            [matDatepicker]="dobPicker"
-                            formControlName="dateOfBirth"
-                            placeholder="MM/DD/YYYY"
-                        >
-
-                        <mat-datepicker-toggle
-                            matIconSuffix
-                            [for]="dobPicker">
-                        </mat-datepicker-toggle>
-
-                        <mat-datepicker #dobPicker></mat-datepicker>
-                    </mat-form-field>
-
-                    <div class="flex items-center">
-                        <mat-slide-toggle formControlName="status">
-                            Active
-                        </mat-slide-toggle>
-                    </div>
-                </div> -->
             </section>
+            
+            <div class="dialog-actions flex flex-row justify-end gap-[12px]">
+                <button
+                    mat-stroked-button
+                    type="button"
+                    (click)="closeDialog()"
+                    >
+                    Cancel
+                </button>
+                    
+                <button
+                    mat-flat-button
+                    color="primary"
+                    type="submit"
+                    >
+                    {{ id ? 'Update' : 'Create' }}
+                </button>
+            </div>
         </form>
     </div>
-</section>
-
-<pre>
-    {{form.value  | json}}
-</pre>
+</section> 

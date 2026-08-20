@@ -14,7 +14,7 @@ export interface Employee {
 
   salary: number;
   hireDate: string;
-  status: string;
+  status: boolean;
   photo: string;
 }
 
