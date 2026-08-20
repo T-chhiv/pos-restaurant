@@ -1,4 +1,4 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Department, Position, Role } from '../../../models/employee-model';
 import { EmployeeService } from '../../../services/employee-services/employee-service';
@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class StaffDetail implements OnInit{
   form!: FormGroup;
   id!: number;
+  currentStaffPhotoLink: string = ''
 
   roles: Role[] = [];
   departments: Department[] =[];
@@ -56,10 +57,18 @@ export class StaffDetail implements OnInit{
       departmentId: ['', Validators.required],
       positionId: ['', Validators.required],
       salary: ['', Validators.required],
-      status:['', Validators.required],
+      status:[false, Validators.required],
       photo:['', Validators.required],
-      phone: [''],
-      hireDate:[''],
+      phone: ['', Validators.required],
+      hireDate:['', Validators.required],
+    })
+
+    this.getPhotoFormValue();
+  }
+
+  private getPhotoFormValue():void{
+    this.form.get('photo')?.valueChanges.subscribe(res => {
+      this.currentStaffPhotoLink = res
     })
   }
 
@@ -90,24 +99,34 @@ export class StaffDetail implements OnInit{
     })
   }
 
-  onSubmit(){
+  onSubmit(): void {
+    // Mark every field as touched so validation errors appear
+    this.form.markAllAsTouched();
+    // Stop submission if any required field is empty/invalid
+    if (this.form.invalid) {
+      return;
+    }
+
     this.id ? this.onUpdate() : this.onCreate();
   }
 
-  private onCreate(){
-    this.form.markAllAsTouched();
-    this.staffService.create(this.form.value).subscribe(res => {
-      this.dialogRef.close();
-    })
+  private onCreate(): void {
+    this.staffService.create(this.form.value).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+      }
+    });
   }
 
-  private onUpdate(){
-    this.staffService.update(this.id, this.form.value).subscribe(res => {
-      this.dialogRef.close();
-    })
+  private onUpdate(): void {
+    this.staffService.update(this.id, this.form.value).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+      }
+    });
   }
 
   closeDialog(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 }
