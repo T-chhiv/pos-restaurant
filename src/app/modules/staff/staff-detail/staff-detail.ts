@@ -5,9 +5,10 @@ import { EmployeeService } from '../../../services/employee-services/employee-se
 import { RoleService } from '../../../services/employee-setup-services/role-service';
 import { DepartmentService } from '../../../services/employee-setup-services/department-service';
 import { PositionService } from '../../../services/employee-setup-services/position-service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ShareMaterialModule } from '../../../shareComponents/share-material/share-material-module';
 import { CommonModule } from '@angular/common';
+import { ResetPasswordDetail } from '../reset-password-detail/reset-password-detail';
 
 @Component({
   selector: 'app-staff-detail',
@@ -19,6 +20,7 @@ import { CommonModule } from '@angular/common';
 export class StaffDetail implements OnInit{
   form!: FormGroup;
   id!: number;
+  isVisible: boolean = false;
   currentStaffPhotoLink: string = ''
 
   roles: Role[] = [];
@@ -27,6 +29,7 @@ export class StaffDetail implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private staffService : EmployeeService,
     private roleService : RoleService,
     private departmentService : DepartmentService,
@@ -126,7 +129,20 @@ export class StaffDetail implements OnInit{
     });
   }
 
+  checkPasswordVisible(){
+    this.isVisible = !this.isVisible;
+  }
+
   closeDialog(): void {
     this.dialogRef.close(true);
+  }
+
+  openResetPasswordDialog (){
+    this.dialog.open(ResetPasswordDetail, {
+      width: '750px',
+      data:{
+        id: this.id
+      }
+    })
   }
 }

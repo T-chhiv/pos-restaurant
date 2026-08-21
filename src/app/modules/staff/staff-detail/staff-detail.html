@@ -29,7 +29,7 @@
                         >
 
                         @if (id) {
-                            <button matButton> <span class="title">Reset Password</span></button>
+                            <button matButton (click)="openResetPasswordDialog()"><span class="title">Reset Password</span></button>
                         }
                     </div>
 
@@ -101,7 +101,30 @@
                         
                         <mat-form-field appearance="outline" class="w-full">
                                 <mat-label>Password</mat-label>
-                                <input matInput type="password" formControlName="password" placeholder="Password" required>
+                                <mat-icon matPrefix>
+                                    lock
+                                </mat-icon>
+                                <input 
+                                    matInput 
+                                    [type]="isVisible ? 'text' : 'password'"
+                                    formControlName="password" 
+                                    placeholder="Password" 
+                                    required>
+
+                                <button
+                                    mat-icon-button
+                                    matSuffix
+                                    type="button"
+                                    [attr.aria-label]="
+                                    isVisible ? 'Hide password' : 'Show password'
+                                    "
+                                    (click)="checkPasswordVisible()"
+                                >
+                                    <mat-icon>
+                                    {{ isVisible ? 'visibility_off' : 'visibility' }}
+                                    </mat-icon>
+                                </button>
+
                                 @if ( form.get('password')?.hasError('required') && form.get('password')?.touched ) {
                                     <mat-error>
                                         Password is required
@@ -208,12 +231,6 @@
                     <mat-slide-toggle formControlName="status" color="primary">
                         Status
                     </mat-slide-toggle>
-
-                    @if ( form.get('status')?.hasError('required') && form.get('status')?.touched ) {
-                        <mat-error>
-                            Status is required
-                        </mat-error>
-                    }
                 </div>
 
                 <div class="flex flex-col gap-[12px] sm:flex-row">
