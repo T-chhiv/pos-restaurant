@@ -31,21 +31,6 @@ export class Login implements OnInit{
     })
   }
 
-  // logIn(){
-  //   const username = this.form.get('username')?.value;
-  //   const password = this.form.get('password')?.value;
-  //   alert('funtion')
-  //   this.authService.login(username, password).subscribe( success =>{
-  //     if(success){
-  //       this.router.navigate(['/home'])
-  //       alert('sucess')
-  //     } else{
-  //       this.inCorrectLogin = true;
-  //       alert(this.inCorrectLogin)
-  //     }
-  //   })
-  // }
-
   logIn(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

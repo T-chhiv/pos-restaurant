@@ -1,21 +1,21 @@
 {
   "employees": [
     {
-      "id": 1,
       "firstName": "Ibrahim",
       "lastName": "Kadri",
       "username": "admin",
       "password": "P@ssw0rd",
-      "phone": "+855 12 345 678",
       "gender": "Male",
       "dateOfBirth": "1995-04-15",
       "roleId": 1,
       "departmentId": 1,
       "positionId": 1,
       "salary": 850,
-      "hireDate": "2023-01-10",
       "status": true,
-      "photo": "https://i.pravatar.cc/150?img=12"
+      "photo": "https://i.pravatar.cc/150?img=12",
+      "phone": "+855 12 345 678",
+      "hireDate": "2023-01-10",
+      "id": 1
     },
     {
       "id": 2,
@@ -137,21 +137,21 @@
       "photo": "https://i.pravatar.cc/150?img=48"
     },
     {
-      "id": 10,
       "firstName": "Chantha",
       "lastName": "Yim",
       "username": "chantha",
       "password": "chantha123",
-      "phone": "+855 96 234 567",
       "gender": "Female",
       "dateOfBirth": "2002-05-27",
       "roleId": 6,
       "departmentId": 3,
       "positionId": 9,
       "salary": 320,
-      "hireDate": "2025-01-15",
       "status": false,
-      "photo": "https://i.pravatar.cc/150?img=49"
+      "photo": "https://i.pravatar.cc/150?img=49",
+      "phone": "+855 96 234 567",
+      "hireDate": "2025-01-15",
+      "id": 10
     },
     {
       "id": 11,
