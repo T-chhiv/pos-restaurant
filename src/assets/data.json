@@ -188,38 +188,6 @@
       "id": 16
     }
   ],
-  "roles": [
-    {
-      "id": 1,
-      "name": "Admin",
-      "description": "Has full access to the restaurant management system and can manage employees, settings, and operations."
-    },
-    {
-      "id": 2,
-      "name": "Cashier",
-      "description": "Handles customer payments, billing, receipts, and cashier operations."
-    },
-    {
-      "id": 3,
-      "name": "Waiter",
-      "description": "Handles customer service, table orders, food delivery, and communication with the kitchen."
-    },
-    {
-      "id": 4,
-      "name": "Chef",
-      "description": "Prepares food, manages kitchen operations, and maintains food quality and safety."
-    },
-    {
-      "id": 5,
-      "name": "Manager",
-      "description": "Assists with restaurant operations, staff management, customer service, and daily business activities."
-    },
-    {
-      "id": 6,
-      "name": "Staff",
-      "description": "Performs general restaurant tasks and supports daily restaurant operations."
-    }
-  ],
   "departments": [
     {
       "id": 1,
@@ -246,47 +214,62 @@
     {
       "id": 1,
       "name": "Restaurant Manager",
+      "departmentId": 1,
       "description": "Manages the overall restaurant operation, staff, customer service, and business performance."
     },
     {
       "id": 2,
-      "name": "Senior Cashier",
-      "description": "Handles cashier operations and assists with supervising other cashiers."
-    },
-    {
-      "id": 3,
-      "name": "Waiter",
-      "description": "Takes customer orders, serves food and beverages, and provides customer service."
-    },
-    {
-      "id": 4,
-      "name": "Waitress",
-      "description": "Provides table service, takes orders, serves customers, and maintains dining area service."
-    },
-    {
-      "id": 5,
-      "name": "Head Chef",
-      "description": "Leads the kitchen team, manages food preparation, menu execution, and kitchen quality."
-    },
-    {
-      "id": 6,
-      "name": "Sous Chef",
-      "description": "Assists the head chef with kitchen operations, food preparation, and supervision of kitchen staff."
-    },
-    {
-      "id": 7,
-      "name": "Cashier",
-      "description": "Processes customer payments, manages bills, and provides receipts."
-    },
-    {
-      "id": 8,
       "name": "Assistant Manager",
+      "departmentId": 1,
       "description": "Assists the restaurant manager with daily operations, staff coordination, and customer service."
     },
     {
-      "id": 9,
+      "id": 3,
+      "name": "Senior Cashier",
+      "departmentId": 2,
+      "description": "Handles cashier operations and assists with supervising other cashiers."
+    },
+    {
+      "id": 4,
+      "name": "Cashier",
+      "departmentId": 2,
+      "description": "Processes customer payments, manages bills, and provides receipts."
+    },
+    {
+      "id": 5,
+      "name": "Waiter",
+      "departmentId": 3,
+      "description": "Takes customer orders, serves food and beverages, and provides customer service."
+    },
+    {
+      "id": 6,
+      "name": "Waitress",
+      "departmentId": 3,
+      "description": "Provides table service, takes orders, serves customers, and maintains dining area service."
+    },
+    {
+      "id": 7,
       "name": "Restaurant Staff",
+      "departmentId": 3,
       "description": "Supports daily restaurant operations and assists customers and other departments as needed."
+    },
+    {
+      "id": 8,
+      "name": "Head Chef",
+      "departmentId": 4,
+      "description": "Leads the kitchen team, manages food preparation, menu execution, and kitchen quality."
+    },
+    {
+      "id": 9,
+      "name": "Sous Chef",
+      "departmentId": 4,
+      "description": "Assists the head chef with kitchen operations, food preparation, and supervision of kitchen staff."
+    },
+    {
+      "name": "7",
+      "departmentId": 4,
+      "description": "testghjk",
+      "id": 10
     }
   ]
 }

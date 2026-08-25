@@ -19,6 +19,18 @@ const routes: Routes = [
         loadChildren: () => 
             import('../page-management/page-management-routing-module')
             .then(m => m.PageManagementRoutingModule)
+      },
+      {
+        path: 'department',
+        loadChildren: () =>
+            import('../staff-master-set-up/departments/departments-routing-module')
+            .then(m => m.DepartmentsRoutingModule)
+      },
+      {
+        path: 'position',
+        loadChildren: () => 
+          import('../staff-master-set-up/position/position-routing-module')
+          .then(m => m.PositionRoutingModule)
       }
     ]
   }

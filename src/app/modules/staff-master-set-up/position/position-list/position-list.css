@@ -1,0 +1,70 @@
+:host {
+    --primary-teal: #f59e0b;
+    --light-teal: #fff7ed;
+    --bg-gray: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+:host {
+    --primary-teal: #f59e0b;
+    --light-teal: #fff7ed;
+    --bg-gray: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+/* Table */
+
+.mat-mdc-table {
+    background: white;
+}
+
+/* Header */
+.mat-mdc-header-row {
+    background-color: var(--primary-teal) !important;
+}
+
+.mat-mdc-header-cell {
+    background-color: var(--primary-teal) !important;
+    color: white !important;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+
+    border-bottom: none !important;
+}
+
+/* Body cells */
+.mat-mdc-cell {
+    color: var(--text-dark);
+    font-size: 14px;
+    border-bottom-color: var(--border-color);
+}
+
+/* Rows */
+.mat-mdc-row {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: var(--light-teal) !important;
+    }
+}
+
+/* Paginator */
+
+.mat-mdc-paginator {
+    background: white;
+    border-top: 1px solid var(--border-color);
+}
+
+/*Add Button*/
+
+.add-button {
+    color: var(--mat-sys-primary) !important;
+    border-color: var(--border-color) !important;
+}

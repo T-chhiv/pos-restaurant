@@ -5,14 +5,13 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Department, Employee, Position, Role } from '../../../models/employee-model';
+import { Department, Employee, Position } from '../../../models/employee-model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from '../../../services/employee-services/employee-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { StaffDetail } from '../staff-detail/staff-detail';
-import { RoleService } from '../../../services/employee-setup-services/role-service';
 import { DepartmentService } from '../../../services/employee-setup-services/department-service';
 import { PositionService } from '../../../services/employee-setup-services/position-service';
 
@@ -22,13 +21,12 @@ import { PositionService } from '../../../services/employee-setup-services/posit
   templateUrl: './staff-list.html',
   styleUrl: './staff-list.css',
 })
-export class StaffList implements OnInit, AfterViewInit {
+export class StaffList implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   form!: FormGroup;
   staffs: Employee[] = [];
-  roles: Role[] = [];
   departments: Department[] = [];
   positions: Position[] = []
 
@@ -38,7 +36,6 @@ export class StaffList implements OnInit, AfterViewInit {
     'name',
     'phone',
     'dateOfBirth',
-    'role',
     'department',
     'position',
     'salary',
@@ -55,18 +52,13 @@ export class StaffList implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private fb : FormBuilder,
     private employeeService: EmployeeService,
-    private roleService: RoleService,
     private departmentService: DepartmentService,
     private positionService: PositionService
   ) {}
 
-  ngAfterViewInit(): void {
-  }
-
   ngOnInit(): void {
     this.iniForm();
     this.loadEmployee();
-    this.loadRole();
     this.loadPosition();
     this.loadDepartment();
   }
@@ -88,12 +80,6 @@ export class StaffList implements OnInit, AfterViewInit {
         this.dataSource.paginator = this.paginator;
       },
     });
-  }
-
-  private loadRole(): void{
-    this.roleService.get().subscribe(res => {
-      this.roles = res
-    })
   }
 
   private loadDepartment(): void{
@@ -129,12 +115,6 @@ export class StaffList implements OnInit, AfterViewInit {
     if (this.paginator) {
       this.paginator.firstPage();
     }
-  }
-
-  getRoleNameById(id: number){
-    if(!this.roles) return;
-    const role = this.roles.find(item  => item.id === id);
-    return role?.name;
   }
 
   getDepartmentNameById(id: number){

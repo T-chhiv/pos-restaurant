@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Department, Position, Role } from '../../../models/employee-model';
+import { Department, Position } from '../../../models/employee-model';
 import { EmployeeService } from '../../../services/employee-services/employee-service';
-import { RoleService } from '../../../services/employee-setup-services/role-service';
 import { DepartmentService } from '../../../services/employee-setup-services/department-service';
 import { PositionService } from '../../../services/employee-setup-services/position-service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -23,7 +22,6 @@ export class StaffDetail implements OnInit{
   isVisible: boolean = false;
   currentStaffPhotoLink: string = ''
 
-  roles: Role[] = [];
   departments: Department[] =[];
   positions: Position[] =[];
 
@@ -31,7 +29,6 @@ export class StaffDetail implements OnInit{
     private fb: FormBuilder,
     private dialog: MatDialog,
     private staffService : EmployeeService,
-    private roleService : RoleService,
     private departmentService : DepartmentService,
     private positionService : PositionService,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
@@ -41,14 +38,13 @@ export class StaffDetail implements OnInit{
   }
   
   ngOnInit(): void {
-    this.iniForm();
+    this.initForm();
     this.id && this.getFormDetail();
-    this.getRoles();
     this.getPositions();
     this.getDepartment();
   }
 
-  private iniForm(){
+  private initForm(){
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -82,12 +78,6 @@ export class StaffDetail implements OnInit{
         this.form.patchValue(staff);
       })
     }
-  }
-
-  private getRoles(): void{
-    this.roleService.get().subscribe(res => {
-      this.roles = res;
-    })
   }
 
   private getPositions(): void{

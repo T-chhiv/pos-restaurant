@@ -8,7 +8,6 @@ export interface Employee {
   gender: string;
   dateOfBirth: string;
 
-  roleId: number;
   departmentId: number;
   positionId: number;
 
@@ -16,12 +15,6 @@ export interface Employee {
   hireDate: string;
   status: boolean;
   photo: string;
-}
-
-export interface Role{
-  id: number,
-  name: string,
-  description: string
 }
 
 export interface Department{
@@ -33,5 +26,6 @@ export interface Department{
 export interface Position{
   id: number,
   name: string,
+  departmentId: number,
   description: string
 }

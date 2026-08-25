@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StaffRoutingModule } from './staff-routing-module';
 import { StaffList } from './staff-list/staff-list';
-import { StaffDetail } from './staff-detail/staff-detail';
 
 import { ShareMaterialModule } from '../../shareComponents/share-material/share-material-module';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule,
     StaffRoutingModule,
     ShareMaterialModule,
-     MatButtonModule,
+    MatButtonModule,
     MatIconModule,
     MatTooltipModule,
     MatFormFieldModule,
