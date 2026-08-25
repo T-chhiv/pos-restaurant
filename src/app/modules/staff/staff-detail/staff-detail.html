@@ -248,21 +248,6 @@
                             </mat-error>
                         }
                     </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-full">
-                        <mat-label>Role</mat-label>
-                        <mat-select formControlName="roleId">
-                            @for(role of roles; track role.id){
-                                <mat-option [value]="role.id">{{role.name}}</mat-option>
-                            }
-                        </mat-select>
-
-                        @if ( form.get('roleId')?.hasError('required') && form.get('roleId')?.touched ) {
-                            <mat-error>
-                                Role is required
-                            </mat-error>
-                        }
-                    </mat-form-field>
                     
                     <mat-form-field appearance="outline" class="w-full">
                         <mat-label>Position</mat-label>
