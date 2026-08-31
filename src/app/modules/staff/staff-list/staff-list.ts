@@ -58,9 +58,9 @@ export class StaffList implements OnInit {
 
   ngOnInit(): void {
     this.iniForm();
-    this.loadEmployee();
     this.loadPosition();
     this.loadDepartment();
+    this.loadEmployee();
   }
 
   private iniForm(){

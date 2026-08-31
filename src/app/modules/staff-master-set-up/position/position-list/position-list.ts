@@ -43,8 +43,8 @@ export class PositionList implements OnInit{
 
   ngOnInit(): void {
     this.initForm();
-    this.getPositions();
     this.getDepartment();
+    this.getPositions();
   }
 
   private initForm(){

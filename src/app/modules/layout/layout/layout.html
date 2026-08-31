@@ -28,6 +28,16 @@
         <mat-icon matListItemIcon>share</mat-icon>
         <span matListItemTitle>Position</span>
       </a>
+      
+      <a mat-list-item routerLink="/home/unit-category" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>category</mat-icon>
+        <span matListItemTitle>Unit Category</span>
+      </a>
+
+      <a mat-list-item routerLink="/home/unit" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>line_weight</mat-icon>
+        <span matListItemTitle>Unit</span>
+      </a>
 
       <a mat-list-item routerLink="/home/page-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
         <mat-icon matListItemIcon>book_2</mat-icon>

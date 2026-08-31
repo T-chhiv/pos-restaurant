@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Layout } from './layout/layout';
-import { authGuardGuard } from '../../guards/auth-guard-guard';
 
 const routes: Routes = [
   {
@@ -31,6 +30,18 @@ const routes: Routes = [
         loadChildren: () => 
           import('../staff-master-set-up/position/position-routing-module')
           .then(m => m.PositionRoutingModule)
+      },
+      {
+        path: 'unit-category',
+        loadChildren: () => 
+          import('../menu-item-master-set-up/unit-categories/unit-categories-routing-module')
+          .then(m => m.UnitCategoriesRoutingModule)
+      },
+      {
+        path: 'unit',
+        loadChildren: () => 
+          import('../menu-item-master-set-up/unit/unit-routing-module')
+          .then(m => m.UnitRoutingModule)
       }
     ]
   }

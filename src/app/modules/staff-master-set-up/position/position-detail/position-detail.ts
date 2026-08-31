@@ -31,8 +31,8 @@ export class PositionDetail implements OnInit{
 
   ngOnInit(): void {
     this.initForm();
-    this.getFormDetail();
     this.getDepartment();
+    this.getFormDetail();
   }
 
   private initForm(){

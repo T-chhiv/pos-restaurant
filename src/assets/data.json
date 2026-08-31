@@ -271,5 +271,723 @@
       "description": "testghjk",
       "id": 10
     }
+  ],
+  "unitCategories": [
+    {
+      "id": 1,
+      "name": "Weight",
+      "description": "Units used to measure weight or mass."
+    },
+    {
+      "id": 2,
+      "name": "Volume",
+      "description": "Units used to measure liquids and other volumes."
+    },
+    {
+      "id": 3,
+      "name": "Count",
+      "description": "Units used to count individual items."
+    },
+    {
+      "id": 4,
+      "name": "Container",
+      "description": "Units used for packaged or contained products."
+    }
+  ],
+  "units": [
+    {
+      "id": 1,
+      "name": "Kilogram",
+      "symbol": "kg",
+      "unitCategoryId": 1,
+      "conversionRate": 1000,
+      "status": true
+    },
+    {
+      "id": 2,
+      "name": "Gram",
+      "symbol": "g",
+      "unitCategoryId": 1,
+      "conversionRate": 1,
+      "status": true
+    },
+    {
+      "id": 4,
+      "name": "Liter",
+      "symbol": "L",
+      "unitCategoryId": 2,
+      "conversionRate": 1000,
+      "status": true
+    },
+    {
+      "id": 5,
+      "name": "Milliliter",
+      "symbol": "mL",
+      "unitCategoryId": 2,
+      "conversionRate": 1,
+      "status": true
+    },
+    {
+      "id": 6,
+      "name": "Piece",
+      "symbol": "pc",
+      "unitCategoryId": 3,
+      "conversionRate": 1,
+      "status": true
+    },
+    {
+      "id": 7,
+      "name": "Dozen",
+      "symbol": "doz",
+      "unitCategoryId": 3,
+      "conversionRate": 12,
+      "status": true
+    },
+    {
+      "id": 8,
+      "name": "Can",
+      "symbol": "can",
+      "unitCategoryId": 4,
+      "conversionRate": 1,
+      "status": true
+    },
+    {
+      "id": 9,
+      "name": "Bottle",
+      "symbol": "btl",
+      "unitCategoryId": 4,
+      "conversionRate": 1,
+      "status": true
+    },
+    {
+      "id": 10,
+      "name": "Box",
+      "symbol": "box",
+      "unitCategoryId": 4,
+      "conversionRate": 1,
+      "status": true
+    },
+    {
+      "id": 11,
+      "name": "Bag",
+      "symbol": "bag",
+      "unitCategoryId": 4,
+      "conversionRate": 1,
+      "status": true
+    },
+    {
+      "id": 12,
+      "name": "Carton",
+      "symbol": "ctn",
+      "unitCategoryId": 4,
+      "conversionRate": 1,
+      "status": true
+    }
+  ],
+  "menuCategories": [
+    {
+      "id": 1,
+      "name": "Rice & Noodles",
+      "description": "Rice and noodle based dishes.",
+      "status": true
+    },
+    {
+      "id": 2,
+      "name": "Cambodian Food",
+      "description": "Traditional Cambodian dishes.",
+      "status": true
+    },
+    {
+      "id": 3,
+      "name": "Burgers & Sandwiches",
+      "description": "Burgers, sandwiches, and similar dishes.",
+      "status": true
+    },
+    {
+      "id": 4,
+      "name": "Pizza",
+      "description": "Pizza and baked dishes.",
+      "status": true
+    },
+    {
+      "id": 5,
+      "name": "Side Dishes",
+      "description": "Fries, snacks, and side dishes.",
+      "status": true
+    },
+    {
+      "id": 6,
+      "name": "Soup",
+      "description": "Soup and broth based dishes.",
+      "status": true
+    },
+    {
+      "id": 7,
+      "name": "Soft Drinks",
+      "description": "Carbonated soft drinks.",
+      "status": true
+    },
+    {
+      "id": 8,
+      "name": "Coffee",
+      "description": "Hot and iced coffee.",
+      "status": true
+    },
+    {
+      "id": 9,
+      "name": "Juice",
+      "description": "Fresh fruit juices.",
+      "status": true
+    },
+    {
+      "id": 10,
+      "name": "Smoothies",
+      "description": "Fruit smoothies.",
+      "status": true
+    },
+    {
+      "id": 11,
+      "name": "Water",
+      "description": "Bottled and mineral water.",
+      "status": true
+    }
+  ],
+  "ingredients": [
+    {
+      "id": 1,
+      "name": "Beef",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 11,
+      "supplier": "Local Meat Supplier",
+      "status": true
+    },
+    {
+      "id": 2,
+      "name": "Jasmine Rice",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1.3,
+      "supplier": "Cambodia Rice Supplier",
+      "status": true
+    },
+    {
+      "id": 3,
+      "name": "Chicken Breast",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 5.2,
+      "supplier": "Local Meat Supplier",
+      "status": true
+    },
+    {
+      "id": 4,
+      "name": "Rice Noodles",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 2.2,
+      "supplier": "Noodle Supplier",
+      "status": true
+    },
+    {
+      "id": 5,
+      "name": "Onion",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1.4,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 6,
+      "name": "Beef Meatballs",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 6,
+      "supplier": "Local Meat Supplier",
+      "status": true
+    },
+    {
+      "id": 7,
+      "name": "Bean Sprouts",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1.2,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 8,
+      "name": "Fish Sauce",
+      "unitId": 2,
+      "unitCategoryId": 2,
+      "costPerUnit": 3.2,
+      "supplier": "Sauce Supplier",
+      "status": true
+    },
+    {
+      "id": 9,
+      "name": "Soy Sauce",
+      "unitId": 2,
+      "unitCategoryId": 2,
+      "costPerUnit": 2.8,
+      "supplier": "Sauce Supplier",
+      "status": true
+    },
+    {
+      "id": 10,
+      "name": "Cucumber",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 11,
+      "name": "Egg",
+      "unitId": 6,
+      "unitCategoryId": 3,
+      "costPerUnit": 0.18,
+      "supplier": "Local Egg Supplier",
+      "status": true
+    },
+    {
+      "id": 12,
+      "name": "Carrot",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1.3,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 13,
+      "name": "Potato",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1.1,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 14,
+      "name": "Cooking Oil",
+      "unitId": 2,
+      "unitCategoryId": 2,
+      "costPerUnit": 2.5,
+      "supplier": "Cooking Supply Supplier",
+      "status": true
+    },
+    {
+      "id": 15,
+      "name": "Burger Bun",
+      "unitId": 6,
+      "unitCategoryId": 3,
+      "costPerUnit": 0.45,
+      "supplier": "Bakery Supplier",
+      "status": true
+    },
+    {
+      "id": 16,
+      "name": "Lettuce",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 2,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 17,
+      "name": "Tomato",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1.8,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 18,
+      "name": "Coffee Beans",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 15,
+      "supplier": "Coffee Supplier",
+      "status": true
+    },
+    {
+      "id": 19,
+      "name": "Fresh Milk",
+      "unitId": 2,
+      "unitCategoryId": 2,
+      "costPerUnit": 1.8,
+      "supplier": "Dairy Supplier",
+      "status": true
+    },
+    {
+      "id": 20,
+      "name": "Ice",
+      "unitId": 2,
+      "unitCategoryId": 2,
+      "costPerUnit": 0.3,
+      "supplier": "Ice Supplier",
+      "status": true
+    },
+    {
+      "id": 21,
+      "name": "Sugar",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 1.2,
+      "supplier": "Grocery Supplier",
+      "status": true
+    },
+    {
+      "id": 22,
+      "name": "Orange",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 2.2,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 23,
+      "name": "Water",
+      "unitId": 2,
+      "unitCategoryId": 2,
+      "costPerUnit": 0.2,
+      "supplier": "Water Supplier",
+      "status": true
+    },
+    {
+      "id": 24,
+      "name": "Mango",
+      "unitId": 1,
+      "unitCategoryId": 1,
+      "costPerUnit": 2.8,
+      "supplier": "Fresh Produce Supplier",
+      "status": true
+    },
+    {
+      "id": 25,
+      "name": "Mineral Water Bottle",
+      "unitId": 9,
+      "unitCategoryId": 4,
+      "costPerUnit": 0.35,
+      "supplier": "Beverage Supplier",
+      "status": true
+    },
+    {
+      "id": 26,
+      "name": "Coca-Cola Bottle",
+      "unitId": 9,
+      "unitCategoryId": 4,
+      "costPerUnit": 0.55,
+      "supplier": "Beverage Supplier",
+      "status": true
+    }
+  ],
+  "menuItems": [
+    {
+      "id": 1,
+      "name": "Beef Lok Lak",
+      "description": "Stir-fried beef served with rice, vegetables, and pepper-lime sauce.",
+      "menuCategoryId": 2,
+      "itemType": "food",
+      "price": 6.5,
+      "cost": 2.35,
+      "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 1,
+          "quantity": 0.18,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 5,
+          "quantity": 0.03,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 8,
+          "quantity": 0.02,
+          "unitId": 2
+        },
+        {
+          "ingredientId": 9,
+          "quantity": 0.01,
+          "unitId": 2
+        },
+        {
+          "ingredientId": 10,
+          "quantity": 0.15,
+          "unitId": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Chicken Fried Rice",
+      "description": "Fried rice with chicken, egg, vegetables, and seasoning.",
+      "menuCategoryId": 1,
+      "itemType": "food",
+      "price": 5,
+      "cost": 1.65,
+      "image": "https://images.unsplash.com/photo-1603133872878-684f208fb84b",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 2,
+          "quantity": 0.18,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 3,
+          "quantity": 0.1,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 11,
+          "quantity": 1,
+          "unitId": 6
+        },
+        {
+          "ingredientId": 12,
+          "quantity": 0.05,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 9,
+          "quantity": 0.01,
+          "unitId": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Khmer Beef Noodle Soup",
+      "description": "Rice noodles with beef, herbs, and savory broth.",
+      "menuCategoryId": 1,
+      "itemType": "food",
+      "price": 5.5,
+      "cost": 1.9,
+      "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 4,
+          "quantity": 0.12,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 6,
+          "quantity": 0.15,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 7,
+          "quantity": 0.1,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 8,
+          "quantity": 0.3,
+          "unitId": 2
+        },
+        {
+          "ingredientId": 9,
+          "quantity": 0.01,
+          "unitId": 2
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "French Fries",
+      "description": "Crispy golden fries served as a side dish.",
+      "menuCategoryId": 5,
+      "itemType": "food",
+      "price": 2.5,
+      "cost": 0.75,
+      "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 13,
+          "quantity": 0.2,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 14,
+          "quantity": 0.01,
+          "unitId": 2
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Chicken Sandwich",
+      "description": "Grilled chicken sandwich with lettuce, tomato, and sauce.",
+      "menuCategoryId": 3,
+      "itemType": "food",
+      "price": 4.5,
+      "cost": 1.55,
+      "image": "https://images.unsplash.com/photo-1521390188846-e2a3a97453a0",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 15,
+          "quantity": 1,
+          "unitId": 6
+        },
+        {
+          "ingredientId": 3,
+          "quantity": 0.08,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 16,
+          "quantity": 0.03,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 17,
+          "quantity": 0.03,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 14,
+          "quantity": 0.02,
+          "unitId": 2
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Iced Coffee",
+      "description": "Chilled coffee with milk and ice.",
+      "menuCategoryId": 8,
+      "itemType": "drink",
+      "price": 2.75,
+      "cost": 0.7,
+      "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 18,
+          "quantity": 0.02,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 19,
+          "quantity": 0.15,
+          "unitId": 2
+        },
+        {
+          "ingredientId": 20,
+          "quantity": 0.15,
+          "unitId": 2
+        },
+        {
+          "ingredientId": 21,
+          "quantity": 0.01,
+          "unitId": 1
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Fresh Orange Juice",
+      "description": "Freshly squeezed orange juice.",
+      "menuCategoryId": 9,
+      "itemType": "drink",
+      "price": 2.5,
+      "cost": 0.85,
+      "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 22,
+          "quantity": 0.25,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 23,
+          "quantity": 0.2,
+          "unitId": 2
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Mango Smoothie",
+      "description": "Blended fresh mango with milk and ice.",
+      "menuCategoryId": 10,
+      "itemType": "drink",
+      "price": 3.25,
+      "cost": 1.05,
+      "image": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 24,
+          "quantity": 0.2,
+          "unitId": 1
+        },
+        {
+          "ingredientId": 19,
+          "quantity": 0.15,
+          "unitId": 2
+        },
+        {
+          "ingredientId": 20,
+          "quantity": 0.1,
+          "unitId": 2
+        },
+        {
+          "ingredientId": 21,
+          "quantity": 0.01,
+          "unitId": 1
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Mineral Water",
+      "description": "Bottled drinking water.",
+      "menuCategoryId": 11,
+      "itemType": "drink",
+      "price": 1,
+      "cost": 0.35,
+      "image": "https://images.unsplash.com/photo-1548839140-29a749e1cf4d",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 25,
+          "quantity": 1,
+          "unitId": 9
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Coca-Cola",
+      "description": "Chilled carbonated soft drink.",
+      "menuCategoryId": 7,
+      "itemType": "drink",
+      "price": 1.5,
+      "cost": 0.55,
+      "image": "https://images.unsplash.com/photo-1554866585-cd94860890b7",
+      "status": true,
+      "ingredients": [
+        {
+          "ingredientId": 26,
+          "quantity": 1,
+          "unitId": 9
+        }
+      ]
+    }
   ]
 }
