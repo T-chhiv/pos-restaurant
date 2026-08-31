@@ -1,0 +1,145 @@
+<section class="dialog-container p-[16px]">
+    <div
+        class="dialog-header mb-[16px] flex flex-row items-center justify-between"
+    >
+        <div class="title text-xl font-semibold">
+            <h2>{{ id ? 'Edit Unit' : 'Create Unit' }}</h2>
+        </div>
+
+        <button
+            type="button"
+            mat-icon-button
+            class="add-button !h-14 !w-14 shrink-0 border-[1px]"
+            matTooltip="Close"
+            (click)="closeDialog()"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="flex flex-col items-center justify-center gap-[12px]">
+                <!-- Name -->
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Name</mat-label>
+
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="name"
+                        placeholder="Name"
+                    />
+
+                    @if (
+                        form.get('name')?.hasError('required') &&
+                        form.get('name')?.touched
+                    ) {
+                        <mat-error>
+                            Name is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Symbol -->
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Symbol</mat-label>
+
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="symbol"
+                        placeholder="Symbol"
+                    />
+
+                    @if (
+                        form.get('symbol')?.hasError('required') &&
+                        form.get('symbol')?.touched
+                    ) {
+                        <mat-error>
+                            Symbol is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div class="flex flex-col items-baseline justify-center gap-[12px] sm:flex-row">
+                <!-- Unit Category -->
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Unit Category</mat-label>
+
+                    <mat-select formControlName="unitCategoryId">
+                        @for (
+                            unitCategory of unitCategories;
+                            track unitCategory.id
+                        ) {
+                            <mat-option [value]="unitCategory.id">
+                                {{ unitCategory.name }}
+                            </mat-option>
+                        }
+                    </mat-select>
+
+                    @if (
+                        form.get('unitCategoryId')?.hasError('required') &&
+                        form.get('unitCategoryId')?.touched
+                    ) {
+                        <mat-error>
+                            Unit Category is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Conversion Rate -->
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Conversion Rate</mat-label>
+
+                    <input
+                        matInput
+                        type="number"
+                        formControlName="conversionRate"
+                        placeholder="Conversion Rate"
+                        min="0"
+                    />
+
+                    @if (
+                        form.get('conversionRate')?.hasError('required') &&
+                        form.get('conversionRate')?.touched
+                    ) {
+                        <mat-error>
+                            Conversion Rate is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Status -->
+                <mat-slide-toggle
+                    formControlName="status"
+                    color="primary"
+                    class="shrink-0"
+                >
+                    Status
+                </mat-slide-toggle>
+            </div>
+
+            <!-- Actions -->
+            <div class="mt-[20px] flex justify-end gap-[12px]">
+                <button
+                    type="button"
+                    mat-stroked-button
+                    (click)="closeDialog()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    mat-flat-button
+                    color="primary"
+                >
+                    {{ id ? 'Update' : 'Create' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

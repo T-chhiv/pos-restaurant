@@ -1,0 +1,72 @@
+<section class="dialog-container p-[16px]">
+    <div class="dialog-header flex flex-row items-center justify-between mb-[16px]">
+        <div class="title text-xl font-semibold">
+            <h2>{{id ? 'Edit' : 'Create'}}</h2>
+        </div>
+
+        <div>
+            <button
+                type="button"
+                mat-icon-button
+                class="add-button !h-14 !w-14 shrink-0 border-[1px]"
+                matTooltip="Close"
+                (click)="closeDialog()"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="dialog-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="flex flex-col items-center justify-center gap-[12px]">
+                <mat-form-field appearance="outline" class="flex-1 w-full">
+                    <mat-label>Name</mat-label>
+
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="name"
+                        placeholder="Name"
+                        required>
+
+                    @if ( form.get('name')?.hasError('required') && form.get('name')?.touched
+                    ) {
+                        <mat-error>
+                            Name is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Description</mat-label>
+
+                    <textarea
+                        matInput
+                        formControlName="description"
+                        placeholder="Description"
+                        rows="4">
+                    </textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="dialog-actions flex flex-row justify-end gap-[12px]">
+                <button
+                    mat-stroked-button
+                    type="button"
+                    (click)="closeDialog()"
+                    >
+                    Cancel
+                </button>
+                    
+                <button
+                    mat-flat-button
+                    color="primary"
+                    type="submit"
+                    >
+                    {{ id ? 'Update' : 'Create' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

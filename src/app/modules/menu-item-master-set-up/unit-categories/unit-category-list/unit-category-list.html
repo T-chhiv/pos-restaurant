@@ -1,46 +1,21 @@
 <section class="p-3 sm:p-4 lg:p-6">
 
     <!-- Header -->
-    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
-        <!-- Title + Department Filter -->
-        <div class="flex flex-col gap-3 sm:flex-row sm:justify-between">
-            <div>
-                <h2 class="text-xl font-semibold text-gray-800">
-                    Position List
-                </h2>
-    
-                <p class="mb-3 text-sm text-gray-500">
-                    Manage your restaurant positions
-                </p>
-            </div>
+        <!-- Title -->
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800">
+                Unit Category List
+            </h2>
 
-            <form [formGroup]="form">
-                <mat-form-field
-                    appearance="outline"
-                    class="w-full sm:w-[250px]"
-                >
-                    <mat-label>Department</mat-label>
-
-                    <mat-select formControlName="departmentId">
-
-                        <mat-option value="">
-                            All Departments
-                        </mat-option>
-
-                        @for (department of departments; track department.id) {
-                            <mat-option [value]="department.id">
-                                {{ department.name }}
-                            </mat-option>
-                        }
-
-                    </mat-select>
-                </mat-form-field>
-            </form>
+            <p class="text-sm text-gray-500">
+                Manage your restaurant Unit
+            </p>
         </div>
 
         <!-- Search + Add -->
-        <form [formGroup]="form">
+        <form [formGroup]="form" class="w-full sm:w-auto">
             <div class="flex w-full items-baseline gap-2">
 
                 <!-- Search -->
@@ -67,7 +42,7 @@
                     type="button"
                     mat-icon-button
                     class="add-button !h-14 !w-14 shrink-0 border"
-                    matTooltip="Add Position"
+                    matTooltip="Add Department"
                     (click)="openDialog()"
                 >
                     <mat-icon>add</mat-icon>
@@ -75,9 +50,10 @@
 
             </div>
         </form>
+
     </div>
 
-        
+
     <!-- ==================== Table Card ==================== -->
     <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
@@ -102,7 +78,7 @@
 
                     <td
                         mat-cell
-                        *matCellDef="let position; let i = index"
+                        *matCellDef="let department; let i = index"
                     >
                         {{ i + 1 + (paginator.pageIndex * paginator.pageSize) }}
                     </td>
@@ -115,22 +91,8 @@
                         Name
                     </th>
 
-                    <td mat-cell *matCellDef="let position">
-                        {{ position.name }}
-                    </td>
-                </ng-container>
-
-
-                <!-- Department -->
-                <ng-container matColumnDef="department">
-                    <th mat-header-cell *matHeaderCellDef>
-                        Department
-                    </th>
-
-                    <td mat-cell *matCellDef="let position">
-                        <span class="inline-flex rounded-full bg-[#f59e0b] px-3 py-1 text-xs font-medium text-white">
-                            {{ getDepartmentNameById(position.departmentId) }}
-                        </span>
+                    <td mat-cell *matCellDef="let department">
+                        {{ department.name }}
                     </td>
                 </ng-container>
 
@@ -141,20 +103,19 @@
                         Description
                     </th>
 
-                    <td mat-cell *matCellDef="let position">
-                        {{ position.description || '-' }}
+                    <td mat-cell *matCellDef="let department">
+                        {{ department.description }}
                     </td>
                 </ng-container>
 
 
                 <!-- Action -->
                 <ng-container matColumnDef="action">
-
                     <th mat-header-cell *matHeaderCellDef>
                         Action
                     </th>
 
-                    <td mat-cell *matCellDef="let position">
+                    <td mat-cell *matCellDef="let department">
 
                         <div class="flex items-center gap-1">
 
@@ -164,7 +125,7 @@
                                 mat-icon-button
                                 class="!text-blue-600"
                                 matTooltip="Edit"
-                                (click)="openDialog(position.id)"
+                                (click)="openDialog(department.id)"
                             >
                                 <mat-icon>edit</mat-icon>
                             </button>
@@ -175,7 +136,7 @@
                                 mat-icon-button
                                 class="!text-red-600"
                                 matTooltip="Delete"
-                                (click)="remove(position.id)"
+                                (click)="remove(department.id)"
                             >
                                 <mat-icon>delete</mat-icon>
                             </button>
@@ -183,7 +144,6 @@
                         </div>
 
                     </td>
-
                 </ng-container>
 
 
@@ -191,41 +151,31 @@
                 <tr
                     mat-header-row
                     *matHeaderRowDef="displayedColumns"
+                    class="!h-14"
                 ></tr>
 
 
                 <!-- Rows -->
                 <tr
                     mat-row
-                    *matRowDef="let row; columns: displayedColumns;"
+                    *matRowDef="let row; columns: displayedColumns"
+                    class="!h-16 transition-colors hover:bg-gray-50"
                 ></tr>
-
-
-                <!-- No Data -->
-                <tr
-                    class="mat-row"
-                    *matNoDataRow
-                >
-                    <td
-                        class="mat-cell py-10 text-center text-gray-500"
-                        [attr.colspan]="displayedColumns.length"
-                    >
-                        No positions found.
-                    </td>
-                </tr>
 
             </table>
 
         </div>
 
-
-        <!-- Paginator -->
-        <mat-paginator
-            [pageSize]="pageSize"
-            [pageSizeOptions]="pageSizeOptions"
-            showFirstLastButtons
-        >
-        </mat-paginator>
-
     </div>
+
+
+    <!-- Paginator -->
+    <mat-paginator
+        #paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        showFirstLastButtons
+    >
+    </mat-paginator>
+
 </section>

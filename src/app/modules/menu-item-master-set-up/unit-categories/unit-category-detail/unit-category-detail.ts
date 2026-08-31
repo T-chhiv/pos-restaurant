@@ -1,26 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { ShareMaterialModule } from '../../../../shareComponents/share-material/share-material-module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DepartmentService } from '../../../../services/employee-setup-services/department-service';
-import { ShareMaterialModule } from '../../../../shareComponents/share-material/share-material-module';
-import { CommonModule } from '@angular/common';
+import { UnitCategoryService } from '../../../../services/unit-category & unit services/unit-category-service';
 
 @Component({
-  selector: 'app-department-detail',
+  selector: 'app-unit-category-detail',
   standalone: true,
   imports: [CommonModule, ShareMaterialModule, ReactiveFormsModule],
-  templateUrl: './department-detail.html',
-  styleUrl: './department-detail.css',
+  templateUrl: './unit-category-detail.html',
+  styleUrl: './unit-category-detail.css',
 })
-export class DepartmentDetail implements OnInit{
+export class UnitCategoryDetail implements OnInit{
   form!: FormGroup;
   id!: number;
-  
+
   constructor(
     private fb: FormBuilder,
-    private departmentService : DepartmentService,
+    private unitCategoryService: UnitCategoryService,
     @Inject(MAT_DIALOG_DATA) public data: {id: number},
-    private dialogRef: MatDialogRef<DepartmentDetail>
+    private dialogRef: MatDialogRef<UnitCategoryDetail>
   ){
     this.id = data.id;
   }
@@ -39,9 +39,9 @@ export class DepartmentDetail implements OnInit{
 
   private getFormDetail(): void{
     if(this.id){
-      this.departmentService.getById(this.id).subscribe(res => {
-        const department = res;
-        this.form.patchValue(department)
+      this.unitCategoryService.getById(this.id).subscribe(res => {
+        const unitCategory = res;
+        this.form.patchValue(unitCategory)
       })
     }
   }
@@ -56,13 +56,13 @@ export class DepartmentDetail implements OnInit{
   }
 
   private onCreate(): void{
-    this.departmentService.create(this.form.value).subscribe(res => {
+    this.unitCategoryService.create(this.form.value).subscribe(res => {
       this.closeDialog()
     })
   }
 
   private onUpdate(): void{
-    this.departmentService.update(this.id, this.form.value).subscribe(res => {
+    this.unitCategoryService.update(this.id, this.form.value).subscribe(res => {
       this.closeDialog();
     })
   }
