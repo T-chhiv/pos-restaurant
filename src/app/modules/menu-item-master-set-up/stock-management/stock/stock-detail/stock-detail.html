@@ -1,0 +1,151 @@
+<section class="dialog-container p-4">
+  <!-- Header -->
+  <div class="mb-4 flex items-center justify-between">
+    <h2 class="text-xl font-semibold">
+      {{ id ? 'Edit Stock' : 'Create Stock' }}
+    </h2>
+
+    <button
+      type="button"
+      mat-icon-button
+      class="!h-14 !w-14 shrink-0 border"
+      matTooltip="Close"
+      (click)="closeDialog()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <section class="mb-4 flex max-h-[70vh] flex-col gap-3 overflow-y-auto">
+        <!-- Ingredient -->
+       <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Ingredient</mat-label>
+
+          @if (selectedIngredient$ | async; as ingredient) {
+            <div class="absolute inset-0 flex items-center px-2 z-10">
+              <mat-chip-row [removable]="true" class="!w-fit">
+                <div class="flex items-center">
+                  <img
+                    [src]="ingredient.photo"
+                    [alt]="ingredient.name"
+                    class="mr-1 h-6 w-6 rounded-full object-cover"
+                  />
+                  <span>{{ ingredient.name }}</span>
+                </div>
+
+                <button type="button" matChipRemove (click)="removeIngredient()">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+            </div>
+          }
+
+          <input
+            matInput
+            placeholder="Search ingredient..."
+            [formControl]="ingredientSearchControl"
+            [matAutocomplete]="ingredientAuto"
+            [class.opacity-0]="selectedIngredient$ | async"
+            [class.pointer-events-none]="selectedIngredient$ | async"
+          />
+
+          <mat-autocomplete
+            #ingredientAuto="matAutocomplete"
+            [displayWith]="displayFn"
+            (optionSelected)="selectIngredient($event.option.value)"
+          >
+            @for (ingredient of (filteredIngredients$ | async); track ingredient.id) {
+              <mat-option [value]="ingredient">
+                <div class="flex items-center gap-2">
+                  <img
+                    [src]="ingredient.photo"
+                    [alt]="ingredient.name"
+                    class="h-8 w-8 rounded-full object-cover"
+                  />
+                  <span>{{ ingredient.name }}</span>
+                </div>
+              </mat-option>
+            }
+          </mat-autocomplete>
+
+          @if (form.get('ingredientId')?.invalid && form.get('ingredientId')?.touched) {
+            <mat-error>Ingredient is required</mat-error>
+          }
+        </mat-form-field>
+
+      <!-- Quantity + Unit -->
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" formControlName="quantity" placeholder="Quantity" />
+          @if (form.get('quantity')?.hasError('required') && form.get('quantity')?.touched) {
+            <mat-error>Quantity is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Unit</mat-label>
+          <mat-select formControlName="unitId">
+            @for (unit of (units$ | async); track unit.id) {
+              <mat-option [value]="unit.id">
+                {{ unit.symbol }}
+              </mat-option>
+            }
+          </mat-select>
+          @if (form.get('unitId')?.invalid && form.get('unitId')?.touched) {
+            <mat-error>Unit is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <!-- Total Cost + Average Cost -->
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Total Cost</mat-label>
+          <input matInput type="number" formControlName="totalCost" placeholder="Total Cost" />
+          @if (form.get('totalCost')?.hasError('required') && form.get('totalCost')?.touched) {
+            <mat-error>Total Cost is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Average Cost Per Unit</mat-label>
+          <input matInput type="number" readonly formControlName="averageCostPerUnit" />
+          <mat-hint>Read Only Average Cost Per Unit</mat-hint>
+        </mat-form-field>
+
+        <!-- Status -->
+        <div class="flex items-center justify-center sm:pb-5 sm:pl-3">
+          <mat-slide-toggle formControlName="status" color="primary">
+            Status
+          </mat-slide-toggle>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Minimun Stock Level</mat-label>
+          <input matInput type="number" formControlName="minStockLevel" placeholder="Minimun Stock Level" />
+          @if (form.get('minStockLevel')?.hasError('required') && form.get('minStockLevel')?.touched) {
+            <mat-error>Minimun Stock Level is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Maximun Stock Level</mat-label>
+          <input matInput type="number" formControlName="maxStockLevel" placeholder="Maximun Stock Level" />
+          @if (form.get('maxStockLevel')?.hasError('required') && form.get('maxStockLevel')?.touched) {
+            <mat-error>Minimun Stock Level is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="flex justify-end gap-2">
+      <button type="button" mat-stroked-button (click)="closeDialog()">Cancel</button>
+      <button type="submit" mat-flat-button>{{ id ? 'Update' : 'Create' }}</button>
+    </div>
+  </form>
+</section>

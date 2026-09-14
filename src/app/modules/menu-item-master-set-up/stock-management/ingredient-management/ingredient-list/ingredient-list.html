@@ -1,0 +1,146 @@
+<section>
+    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+            <h2 class="text-xl font-semibold text-gray-800">
+                Ingredient List
+            </h2>
+            <p class="mb-3 text-sm text-gray-500">
+                Manage your restaurant ingredients
+            </p>
+        </div>
+
+        <form [formGroup]="form">
+            <div class="flex w-full items-baseline gap-2">
+                <mat-form-field appearance="outline" class="w-full sm:w-[280px] lg:w-[320px]">
+                    <mat-label>Search</mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        placeholder="Search by name..."
+                        formControlName="name"
+                    />
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <button
+                    type="button"
+                    mat-icon-button
+                    class="add-button !h-14 !w-14 shrink-0 border"
+                    matTooltip="Add Ingredient"
+                    (click)="openDialog()"
+                >
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div class="min-h-[500px] overflow-x-auto">
+            <table mat-table [dataSource]="dataSource" matSort class="w-full min-w-[800px]">
+
+                <!-- No -->
+                <ng-container matColumnDef="no">
+                    <th mat-header-cell *matHeaderCellDef>No.</th>
+                    <td mat-cell *matCellDef="let ingredient; let i = index">
+                        {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
+                    </td>
+                </ng-container>
+
+                <!-- Image -->
+                <ng-container matColumnDef="img">
+                    <th mat-header-cell *matHeaderCellDef>Image</th>
+
+                    <td mat-cell *matCellDef="let ingredient">
+                        <img
+                            class="h-10 w-10 rounded-full object-cover ring-2 ring-gray-100"
+                            [src]="ingredient.photo || 'images/no-image.jpg'"
+                            [alt]="ingredient.name"
+                        />
+                    </td>
+                </ng-container>
+
+                <!-- Name -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Name
+                    </th>
+                    <td mat-cell *matCellDef="let ingredient">
+                        {{ ingredient.name }}
+                    </td>
+                </ng-container>
+
+                <!-- Description -->
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Description
+                    </th>
+                    <td mat-cell *matCellDef="let ingredient">
+                        {{ ingredient.description || 'No description' }}
+                    </td>
+                </ng-container>
+
+                <!-- Status -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                    <td mat-cell *matCellDef="let ingredient">
+                        @if (ingredient.status) {
+                            <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                                Active
+                            </span>
+                        } @else {
+                            <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
+                                Inactive
+                            </span>
+                        }
+                    </td>
+                </ng-container>
+
+                <!-- Actions -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let ingredient">
+                        <button
+                            type="button"
+                            mat-icon-button
+                            class="action-edit"
+                            (click)="openDialog(ingredient.id)"
+                            matTooltip="Edit Ingredient"
+                        >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <button
+                            type="button"
+                            mat-icon-button
+                            class="action-delete"
+                            (click)="remove(ingredient.id)"
+                            matTooltip="Delete Ingredient"
+                        >
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td
+                        class="mat-cell py-8 text-center text-gray-500"
+                        [attr.colspan]="displayedColumns.length"
+                    >
+                        No ingredients found.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <mat-paginator
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOption"
+            showFirstLastButtons
+        >
+        </mat-paginator>
+    </div>
+</section>

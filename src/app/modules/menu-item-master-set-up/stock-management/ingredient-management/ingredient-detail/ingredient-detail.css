@@ -1,0 +1,16 @@
+:host {
+    --primary-teal: #f59e0b;
+    --light-teal: #fff7ed;
+    --bg-gray: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+.title{
+    color: var(--primary-teal) !important;;
+}
+
+.add-button {
+  color: var(--mat-sys-primary);
+}

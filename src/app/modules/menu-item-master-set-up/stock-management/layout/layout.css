@@ -1,0 +1,115 @@
+:host {
+    --primary-teal: #f59e0b;
+    --light-teal: #fff7ed;
+    --bg-gray: #f8fafc;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+
+/* Toggle group */
+.stock-toggle-group {
+    height: 44px !important;
+    border: 1px solid var(--primary-teal) !important;
+    border-radius: 6px !important;
+    overflow: hidden;
+}
+
+
+/* Each toggle */
+.stock-toggle-group mat-button-toggle {
+    height: 44px !important;
+    min-height: 44px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: var(--primary-teal) !important;
+    border-color: var(--primary-teal) !important;
+}
+
+
+/* Toggle content */
+.stock-toggle-group mat-button-toggle .mat-button-toggle-label-content {
+    height: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 5px;
+    padding: 0 14px !important;
+    line-height: normal !important;
+}
+
+
+/* Icon */
+.stock-toggle-group mat-button-toggle mat-icon {
+    margin: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+
+    color: var(--primary-teal) !important;
+}
+
+
+/* Text */
+.stock-toggle-group mat-button-toggle span {
+    display: flex;
+    align-items: center;
+    line-height: normal;
+    color: var(--primary-teal) !important;
+}
+
+
+/* Active toggle */
+.stock-toggle-group mat-button-toggle.active-stock {
+    background: var(--primary-teal) !important;
+    color: #fff !important;
+}
+
+
+/* Active text */
+.stock-toggle-group mat-button-toggle.active-stock span {
+    color: #fff !important;
+}
+
+
+/* Active icon */
+.stock-toggle-group mat-button-toggle.active-stock mat-icon {
+    color: #fff !important;
+}
+
+
+/* Borders between toggles */
+.stock-toggle-group mat-button-toggle + mat-button-toggle {
+    border-left: 1px solid var(--primary-teal) !important;
+}
+
+
+/* Hover inactive toggle */
+.stock-toggle-group mat-button-toggle:hover:not(.active-stock) {
+    background: var(--light-teal) !important;
+    color: var(--primary-teal) !important;
+}
+
+
+/* Hover inactive text */
+.stock-toggle-group mat-button-toggle:hover:not(.active-stock) span {
+    color: var(--primary-teal) !important;
+}
+
+
+/* Hover inactive icon */
+.stock-toggle-group mat-button-toggle:hover:not(.active-stock) mat-icon {
+    color: var(--primary-teal) !important;
+}

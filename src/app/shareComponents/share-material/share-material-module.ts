@@ -73,6 +73,7 @@ const MATERIAL_MODULES = [
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  MatTabsModule,
   JsonPipe
 ];
 
