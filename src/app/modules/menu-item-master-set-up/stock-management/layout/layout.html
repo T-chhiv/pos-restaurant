@@ -1,0 +1,59 @@
+<div class="flex flex-col md:flex-row justify-between items-center p-2.5">
+
+    <div class="max-sm:self-start mb-2.5">
+
+        <mat-button-toggle-group
+            class="stock-toggle-group"
+            hideSingleSelectionIndicator>
+
+            <!-- Stock -->
+            <mat-button-toggle
+                routerLink="/home/stock-management/stock"
+                routerLinkActive="active-stock"
+                [routerLinkActiveOptions]="{ exact: false }">
+
+                <div class="flex items-center gap-2">
+                    <mat-icon>inventory_2</mat-icon>
+                    <span>Stock</span>
+                </div>
+
+            </mat-button-toggle>
+
+
+            <!-- Transactions -->
+            <mat-button-toggle
+                routerLink="/home/stock-management/stock-transaction"
+                routerLinkActive="active-stock"
+                [routerLinkActiveOptions]="{ exact: false }">
+
+                <div class="flex items-center gap-2">
+                    <mat-icon>receipt_long</mat-icon>
+                    <span>Transactions</span>
+                </div>
+
+            </mat-button-toggle>
+
+
+            <!-- Ingredients -->
+            <mat-button-toggle
+                routerLink="/home/stock-management/ingredient"
+                routerLinkActive="active-stock"
+                [routerLinkActiveOptions]="{ exact: false }">
+
+                <div class="flex items-center gap-2">
+                    <mat-icon>menu_book</mat-icon>
+                    <span>Ingredients</span>
+                </div>
+
+            </mat-button-toggle>
+
+        </mat-button-toggle-group>
+
+    </div>
+
+</div>
+
+
+<div class="px-3">
+    <router-outlet></router-outlet>
+</div>

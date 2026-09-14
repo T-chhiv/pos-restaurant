@@ -1,0 +1,112 @@
+<section class="dialog-container p-[16px]">
+    <div class="dialog-header mb-[16px] flex flex-row items-center justify-between">
+        <div class="title text-xl font-semibold">
+            <h2>{{ id ? 'Edit Ingredient' : 'Create Ingredient' }}</h2>
+        </div>
+
+        <button
+            type="button"
+            mat-icon-button
+            class="add-button !h-14 !w-14 shrink-0 border-[1px]"
+            matTooltip="Close"
+            (click)="closeDialog()"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <section class="mb-[16px] flex max-h-[70vh] flex-col gap-[12px] overflow-y-auto overflow-x-hidden">
+
+                <div class="flex flex-col items-center justify-center gap-[12px]">
+                    <div class="mt-[12px] flex flex-col items-center justify-center gap-[12px]">
+                        <img
+                            [src]="currentIngredientPhotoLink || 'images/upload-image.jpg'"
+                            alt="Ingredient Photo"
+                            class="h-30 w-30 rounded-full border-3 border-[var(--primary-teal)] object-cover"
+                        >
+                    </div>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Photo Link</mat-label>
+                        <input
+                            matInput
+                            type="url"
+                            formControlName="photo"
+                            placeholder="Photo Link"
+                            required
+                        >
+                        <mat-hint>Enter the image URL</mat-hint>
+
+                        @if (
+                            form.get('photo')?.hasError('required') &&
+                            form.get('photo')?.touched
+                        ) {
+                            <mat-error>
+                                Photo link is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Ingredient Name</mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="name"
+                        placeholder="Ingredient Name"
+                        required
+                    >
+
+                    @if (
+                        form.get('name')?.hasError('required') &&
+                        form.get('name')?.touched
+                    ) {
+                        <mat-error>
+                            Ingredient name is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+
+                <div class="flex items-center justify-center">
+                    <mat-slide-toggle
+                        formControlName="status"
+                        color="primary"
+                    >
+                        Status
+                    </mat-slide-toggle>
+                </div>
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Description</mat-label>
+                    <textarea
+                        matInput
+                        rows="4"
+                        formControlName="description"
+                        placeholder="Description"
+                    ></textarea>
+                </mat-form-field>
+            </section>
+
+            <div class="dialog-actions flex flex-row justify-end gap-[12px]">
+                <button
+                    mat-stroked-button
+                    type="button"
+                    (click)="closeDialog()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    mat-flat-button
+                    color="primary"
+                    type="submit"
+                >
+                    {{ id ? 'Update' : 'Create' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

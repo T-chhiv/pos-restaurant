@@ -1,0 +1,198 @@
+<section>
+    <div class="mb-4 flex flex-col gap-3">
+        <div class="flex w-full flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800">
+                    Ingredient Stock List
+                </h2>
+                <p class="mb-3 text-sm text-gray-500">
+                    Manage your restaurant ingredient stock
+                </p>
+            </div>
+
+            <form [formGroup]="form">
+                <div  class="flex w-full items-baseline gap-2">
+                    <mat-form-field appearance="outline" class="w-full sm:w-[250px]">
+                        <mat-label>Ingredient</mat-label>
+                        <mat-select formControlName="ingredientId">
+                            <mat-option value="">All Ingredients</mat-option>
+    
+                            @for (ingredient of ingredients; track ingredient.id) {
+                                <mat-option [value]="ingredient.id">
+                                    {{ ingredient.name }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <button
+                        type="button"
+                        mat-icon-button
+                        class="add-button !h-14 !w-14 shrink-0 border"
+                        matTooltip="Add Unit"
+                        (click)="openDialog()"
+                    >
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <div class="min-h-[500px] overflow-x-auto">
+                <table mat-table [dataSource]="dataSource" matSort class="w-full min-w-[1100px]">
+
+                    <ng-container matColumnDef="no">
+                        <th mat-header-cell *matHeaderCellDef>No.</th>
+                        <td mat-cell *matCellDef="let stock; let i = index">
+                           {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="img">
+                        <th mat-header-cell *matHeaderCellDef>Image</th>
+                        <td mat-cell *matCellDef="let stock">
+                            <img
+                                class="h-10 w-10 rounded-full object-cover ring-2 ring-gray-100"
+                                [src]="getIngredientImageById(stock.ingredientId) || 'images/no-image.jpg'"
+                                [alt]="getIngredientNameById(stock.ingredientId)"
+                                (error)="onImageError($event)"
+                            />
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ingredient">
+                        <th mat-header-cell *matHeaderCellDef>Ingredient</th>
+                        <td mat-cell *matCellDef="let stock">
+                            <span class="font-medium text-gray-800">
+                                {{ getIngredientNameById(stock.ingredientId) }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                        <td mat-cell *matCellDef="let stock">
+                            <span class="font-medium">{{ stock.quantity }}</span>
+                            <span class="ml-1 text-gray-500">
+                                {{ getUnitNameById(stock.unitId) }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="averageCostPerUnit">
+                        <th mat-header-cell *matHeaderCellDef>Average Cost / Unit</th>
+                        <td mat-cell *matCellDef="let stock">
+                            <span class="font-medium text-gray-800">
+                                ${{ stock.averageCostPerUnit | number:'1.2-2' }}
+                            </span>
+                            <span class="ml-1 text-gray-500">
+                                / {{ getUnitNameById(stock.unitId) }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="totalCost">
+                        <th mat-header-cell *matHeaderCellDef>Total Cost</th>
+                        <td mat-cell *matCellDef="let stock">
+                            <span class="font-medium text-gray-800">
+                                ${{stock.totalCost}}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="maxStockLevel">
+                        <th mat-header-cell *matHeaderCellDef>Max Stock Level</th>
+                        <td mat-cell *matCellDef="let stock">
+                            {{ stock.maxStockLevel }}
+                            <span class="ml-1 text-gray-500">
+                                {{ getUnitNameById(stock.unitId) }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="minStockLevel">
+                        <th mat-header-cell *matHeaderCellDef>Min Stock Level</th>
+                        <td mat-cell *matCellDef="let stock">
+                            {{ stock.minStockLevel }}
+                            <span class="ml-1 text-gray-500">
+                                {{ getUnitNameById(stock.unitId) }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let stock">
+                            @if (stock.status) {
+                                <span class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                                    Active
+                                </span>
+                            } @else {
+                                <span class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
+                                    Inactive
+                                </span>
+                            }
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="lastUpdate">
+                        <th mat-header-cell *matHeaderCellDef>Last Update</th>
+                        <td mat-cell *matCellDef="let stock">
+                            {{ stock.lastUpdated | date:'yyyy-MM-dd' }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let stock">
+                            <button
+                                type="button"
+                                mat-icon-button
+                                class="action-edit"
+                                (click)="openDialog(stock.id)"
+                                matTooltip="Edit Stock">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+
+                            <!--
+                            <button
+                                type="button"
+                                mat-icon-button
+                                class="action-delete"
+                                (click)="remove(stock.id)"
+                                matTooltip="Delete Stock">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            -->
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="!h-14"></tr>
+
+                    <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns;"
+                        class="!h-16 transition-colors hover:bg-gray-50">
+                    </tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td
+                            class="mat-cell py-10 text-center text-gray-500"
+                            [attr.colspan]="displayedColumns.length">
+                            No stock data found.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="border-t border-gray-200 bg-white">
+                <mat-paginator
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions"
+                    showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</section>

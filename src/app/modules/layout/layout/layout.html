@@ -39,6 +39,11 @@
         <span matListItemTitle>Unit</span>
       </a>
 
+      <a mat-list-item routerLink="/home/stock-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>warehouse</mat-icon>
+        <span matListItemTitle>Stock</span>
+      </a>
+
       <a mat-list-item routerLink="/home/page-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
         <mat-icon matListItemIcon>book_2</mat-icon>
         <span matListItemTitle>Page Management</span>

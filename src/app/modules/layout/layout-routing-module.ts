@@ -42,6 +42,12 @@ const routes: Routes = [
         loadChildren: () => 
           import('../menu-item-master-set-up/unit/unit-routing-module')
           .then(m => m.UnitRoutingModule)
+      },
+      {
+        path : 'stock-management',
+        loadChildren: () => 
+          import('../menu-item-master-set-up/stock-management/stock-management-routing-module')
+          .then(m => m.StockManagementRoutingModule)
       }
     ]
   }

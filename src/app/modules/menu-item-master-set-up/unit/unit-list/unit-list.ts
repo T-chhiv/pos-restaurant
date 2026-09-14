@@ -4,7 +4,6 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-
 import { Unit, UnitCategory } from '../../../../models/unit-model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -42,7 +41,7 @@ export class UnitList implements OnInit, AfterViewInit {
   pageSize = 10;
   pageSizeOption: number[] = [10, 15, 20, 25, 30, 40, 50];
 
-  dataSource = new MatTableDataSource<Unit>();
+  dataSource = new MatTableDataSource<Unit>([]);
 
   constructor(
     private fb: FormBuilder,
@@ -58,6 +57,7 @@ export class UnitList implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.paginator.pageSize = this.pageSize;
     this.dataSource.paginator = this.paginator;
   }
 
@@ -79,11 +79,9 @@ export class UnitList implements OnInit, AfterViewInit {
     const searchName = String(name).trim().toLowerCase();
 
     const filteredUnits = this.units.filter(unit => {
-
       const unitName = unit.name?.toLowerCase() ?? '';
 
-      const matchesName =
-        unitName.includes(searchName);
+      const matchesName = unitName.includes(searchName);
 
       const matchesUnitCategory =
         !unitCategoryId ||
@@ -101,14 +99,8 @@ export class UnitList implements OnInit, AfterViewInit {
 
   private loadUnit(): void {
     this.unitService.get().subscribe(res => {
-
       this.units = [...res].reverse();
-
       this.dataSource.data = this.units;
-
-      if (this.paginator) {
-        this.dataSource.paginator = this.paginator;
-      }
     });
   }
 

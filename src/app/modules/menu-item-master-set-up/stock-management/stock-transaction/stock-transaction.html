@@ -1,0 +1,238 @@
+<section>
+    <div class="mb-4 flex flex-col gap-3">
+        <div class="flex w-full flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800">
+                    Ingredient Stock Transactions
+                </h2>
+
+                <p class="mb-3 text-sm text-gray-500">
+                    View and filter your restaurant ingredient stock transactions
+                </p>
+            </div>
+
+            <form [formGroup]="form">
+                <div class="flex w-full items-baseline gap-2">
+
+                    <mat-form-field appearance="outline" class="w-full sm:w-[260px]">
+                        <mat-label>Date</mat-label>
+    
+                        <input
+                            matInput
+                            [matDatepicker]="datePicker"
+                            formControlName="date"
+                            placeholder="MM/DD/YYYY"
+                        >
+    
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+    
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="datePicker">
+                        </mat-datepicker-toggle>
+    
+                        <mat-datepicker #datePicker></mat-datepicker>
+                    </mat-form-field>
+    
+                    <button
+                        type="button"
+                        mat-icon-button
+                        class="add-button !h-14 !w-14 shrink-0 border"
+                        matTooltip="Add Ingredient"
+                        (click)="refresh()"
+                    >
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <div class="min-h-[500px] overflow-x-auto">
+
+                <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    class="w-full min-w-[1100px]"
+                >
+
+                    <ng-container matColumnDef="no">
+                        <th mat-header-cell *matHeaderCellDef>
+                            No.
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction; let i = index">
+                            {{paginator.pageIndex * paginator.pageSize + i + 1}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Date
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction">
+                            {{ stockTransaction.date | date:'yyyy-MM-dd' }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="img">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Image
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction">
+                            <img
+                                class="h-10 w-10 rounded-full object-cover ring-2 ring-gray-100"
+                                [src]="
+                                    getIngredientImageById(
+                                        stockTransaction.ingredientId
+                                    ) || 'images/no-image.jpg'
+                                "
+                                [alt]="
+                                    getIngredientNameById(
+                                        stockTransaction.ingredientId
+                                    )
+                                "
+                                (error)="onImageError($event)"
+                            >
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ingredient">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Ingredient
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction">
+                            <div class="flex flex-col">
+
+                                <span class="font-medium text-gray-800">
+                                    {{
+                                        getIngredientNameById(
+                                            stockTransaction.ingredientId
+                                        )
+                                    }}
+                                </span>
+
+                                <div class="flex text-sm">
+                                    <span class="font-medium text-gray-700">
+                                        Quantity:
+                                        {{ stockTransaction.quantity }}
+                                    </span>
+
+                                    <span class="ml-1 text-gray-500">
+                                        {{
+                                            getUnitNameById(
+                                                stockTransaction.unitId
+                                            )
+                                        }}
+                                    </span>
+                                </div>
+
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cost">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Cost
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction">
+                            <div class="flex flex-col">
+
+                                <span class="font-medium text-gray-800">
+                                    Total Cost:
+                                    ${{ stockTransaction.totalCost }}
+                                </span>
+
+                                <span class="text-sm text-gray-500">
+                                    Cost Per Unit:
+                                    ${{ stockTransaction.costPerUnit }}
+                                </span>
+
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Type
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction">
+                            <div class="flex flex-col">
+
+                                <span class="font-medium text-gray-800">
+                                    Type: {{ stockTransaction.type }}
+                                </span>
+
+                                <span class="text-sm text-gray-500">
+                                    Direction: {{ stockTransaction.direction }}
+                                </span>
+
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="note">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Note
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction">
+                            <span class="text-gray-600">
+                                {{ stockTransaction.note }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="reference">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Reference
+                        </th>
+
+                        <td mat-cell *matCellDef="let stockTransaction">
+                            <span class="font-medium text-gray-700">
+                                {{ stockTransaction.reference }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <tr
+                        mat-header-row
+                        *matHeaderRowDef="displayedColumns"
+                        class="!h-14">
+                    </tr>
+
+                    <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns;"
+                        class="!h-16 transition-colors hover:bg-gray-50">
+                    </tr>
+
+                    <tr
+                        class="mat-row"
+                        *matNoDataRow>
+                        <td
+                            class="mat-cell py-10 text-center text-gray-500"
+                            [attr.colspan]="displayedColumns.length">
+                            No stock transactions found.
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div class="border-t border-gray-200 bg-white">
+                <mat-paginator
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions"
+                    showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</section>
