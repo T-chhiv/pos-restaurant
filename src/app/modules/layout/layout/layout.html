@@ -44,6 +44,11 @@
         <span matListItemTitle>Stock</span>
       </a>
 
+      <a mat-list-item routerLink="/home/menu-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>menu_open</mat-icon>
+        <span matListItemTitle>Menu</span>
+      </a>
+
       <a mat-list-item routerLink="/home/page-management" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
         <mat-icon matListItemIcon>book_2</mat-icon>
         <span matListItemTitle>Page Management</span>

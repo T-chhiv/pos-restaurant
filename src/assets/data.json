@@ -969,7 +969,7 @@
       "id": 27
     },
     {
-      "ingredientId": 27,
+      "ingredientId": 1,
       "quantity": 42,
       "unitId": 1,
       "totalCost": 470,
@@ -977,7 +977,7 @@
       "minStockLevel": 57,
       "maxStockLevel": 32,
       "averageCostPerUnit": 11.19,
-      "lastUpdated": "2026-09-14",
+      "lastUpdated": "2026-09-25",
       "id": 28
     }
   ],

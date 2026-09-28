@@ -1,0 +1,44 @@
+<div class="flex flex-col md:flex-row justify-between items-center p-2.5">
+
+    <div class="max-sm:self-start mb-2.5">
+
+        <mat-button-toggle-group
+            class="item-toggle-group"
+            hideSingleSelectionIndicator>
+
+            <!-- Items -->
+            <mat-button-toggle
+                routerLink="/home/menu-management/item"
+                routerLinkActive="active-item"
+                [routerLinkActiveOptions]="{ exact: false }">
+
+                <div class="flex items-center gap-2">
+                    <mat-icon>fastfood</mat-icon>
+                    <span>Items</span>
+                </div>
+
+            </mat-button-toggle>
+
+
+            <!-- Menu Category -->
+            <mat-button-toggle
+                routerLink="/home/menu-management/menu-category"
+                routerLinkActive="active-item"
+                [routerLinkActiveOptions]="{ exact: false }">
+
+                <div class="flex items-center gap-2">
+                    <mat-icon>folder</mat-icon>
+                    <span>Menu Category</span>
+                </div>
+
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+
+    </div>
+
+</div>
+
+
+<div class="px-3">
+    <router-outlet></router-outlet>
+</div>
