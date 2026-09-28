@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuItemCategoryService } from '../../../../../services/menu-items-services/menu-item-category-service';
 import { MenuCategoryDetail } from '../menu-category-detail/menu-category-detail';
+import { DeleteConfirmationService } from '../../../../../services/Delete-confirmation-service/delete-confirmation-service';
 
 @Component({
   selector: 'app-menu-category-list',
@@ -35,6 +36,7 @@ export class MenuCategoryList implements OnInit{
     private fb: FormBuilder,
     private dialog: MatDialog,
     private menuItemCategoryService: MenuItemCategoryService,
+    private deleteConfirmationService: DeleteConfirmationService
   ){}
 
   ngOnInit(): void {
@@ -72,10 +74,21 @@ export class MenuCategoryList implements OnInit{
     })
   }
 
-  remove(id: number): void{
-    this.menuItemCategoryService.delete(id).subscribe(res => {
-      this.loadMenuItemCategory();
-    })
+  remove(id: number): void {
+    this.deleteConfirmationService.confirm({
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this item?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (!confirmed) {
+        return;
+      }
+
+      this.menuItemCategoryService.delete(id).subscribe(res => {
+        this.loadMenuItemCategory();
+      })
+    });
   }
 
   openDialog(id?: number): void{

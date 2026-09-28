@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { StaffDetail } from '../staff-detail/staff-detail';
 import { DepartmentService } from '../../../services/employee-setup-services/department-service';
 import { PositionService } from '../../../services/employee-setup-services/position-service';
+import { DeleteConfirmationService } from '../../../services/Delete-confirmation-service/delete-confirmation-service';
 
 @Component({
   selector: 'app-staff-list',
@@ -52,7 +53,8 @@ export class StaffList implements OnInit {
     private fb : FormBuilder,
     private employeeService: EmployeeService,
     private departmentService: DepartmentService,
-    private positionService: PositionService
+    private positionService: PositionService,
+    private deleteConfirmationService: DeleteConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -128,19 +130,35 @@ export class StaffList implements OnInit {
     return position?.name;
   }
 
+  remove(id: number): void {
+    this.deleteConfirmationService.confirm({
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this item?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (!confirmed) {
+        return;
+      }
 
-  remove(id: number){
-    this.employeeService.delete(id).subscribe(res => {
-      this.loadEmployee();
-    })
+      this.employeeService.delete(id).subscribe(res => {
+        this.loadEmployee();
+      })
+    });
   }
 
   openDialog (id?: number){
-    this.dialog.open(StaffDetail, {
+    const dialogRef = this.dialog.open(StaffDetail, {
       width: '850px',
       data:{
         id
       }
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadEmployee();
+      }
+    });
   }
 }

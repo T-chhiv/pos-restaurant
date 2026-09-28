@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Ingredient } from '../../../../../models/ingredient-model';
 import { IngredientService } from '../../../../../services/menu-items-services/ingredient-service';
 import { IngredientDetail } from '../ingredient-detail/ingredient-detail';
+import { DeleteConfirmationService } from '../../../../../services/Delete-confirmation-service/delete-confirmation-service';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -36,6 +37,7 @@ export class IngredientList implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private ingredientService: IngredientService,
+    private deleteConfirmationService: DeleteConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -79,8 +81,19 @@ export class IngredientList implements OnInit, AfterViewInit {
   }
 
   remove(id: number): void {
-    this.ingredientService.delete(id).subscribe(() => {
-      this.loadIngredient();
+    this.deleteConfirmationService.confirm({
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this item?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (!confirmed) {
+        return;
+      }
+
+      this.ingredientService.delete(id).subscribe(() => {
+        this.loadIngredient();
+      });
     });
   }
 

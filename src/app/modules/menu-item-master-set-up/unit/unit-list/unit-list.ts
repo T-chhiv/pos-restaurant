@@ -12,6 +12,7 @@ import { UnitService } from '../../../../services/unit-category & unit services/
 import { MatPaginator } from '@angular/material/paginator';
 import { UnitDetail } from '../unit-detail/unit-detail';
 import { UnitCategoryService } from '../../../../services/unit-category & unit services/unit-category-service';
+import { DeleteConfirmationService } from '../../../../services/Delete-confirmation-service/delete-confirmation-service';
 
 @Component({
   selector: 'app-unit-list',
@@ -47,7 +48,8 @@ export class UnitList implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private unitService: UnitService,
-    private unitCategoryService: UnitCategoryService
+    private unitCategoryService: UnitCategoryService,
+    private deleteConfirmationService: DeleteConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -119,8 +121,19 @@ export class UnitList implements OnInit, AfterViewInit {
   }
 
   remove(id: number): void {
-    this.unitService.delete(id).subscribe(() => {
-      this.loadUnit();
+    this.deleteConfirmationService.confirm({
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this item?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (!confirmed) {
+        return;
+      }
+
+      this.unitService.delete(id).subscribe(() => {
+        this.loadUnit();
+      });
     });
   }
 
