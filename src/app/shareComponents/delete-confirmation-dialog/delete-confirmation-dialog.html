@@ -1,0 +1,17 @@
+<h2 mat-dialog-title class="flex justify-center text-center title">
+  {{ data.title || 'Confirm Action' }}
+</h2>
+
+<div mat-dialog-content class="text-center text">
+  <p>{{ data.message }}</p>
+</div>
+
+<div mat-dialog-actions class="justify-end">
+  <button mat-stroked-button  type="button" mat-dialog-close>
+    {{ data.cancelText || 'Cancel' }}
+  </button>
+
+  <button mat-flat-button color="warn" (click)="onConfirm()">
+    {{ data.confirmText || 'Delete' }}
+  </button>
+</div>

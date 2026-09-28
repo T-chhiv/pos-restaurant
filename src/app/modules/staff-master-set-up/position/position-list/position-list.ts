@@ -7,6 +7,7 @@ import { PositionService } from '../../../../services/employee-setup-services/po
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { PositionDetail } from '../position-detail/position-detail';
+import { DeleteConfirmationService } from '../../../../services/Delete-confirmation-service/delete-confirmation-service';
 
 @Component({
   selector: 'app-position-list',
@@ -39,6 +40,7 @@ export class PositionList implements OnInit{
     private dialog: MatDialog,
     private departmentService: DepartmentService,
     private positionService : PositionService,
+    private deleteConfirmationService: DeleteConfirmationService
   ){}
 
   ngOnInit(): void {
@@ -100,18 +102,35 @@ export class PositionList implements OnInit{
     return department?.name;
   }
 
-  remove(id: number){
-    this.positionService.delete(id).subscribe(res => {
-      this.getPositions();
-    })
+  remove(id: number): void {
+    this.deleteConfirmationService.confirm({
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this item?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (!confirmed) {
+        return;
+      }
+
+      this.positionService.delete(id).subscribe(res => {
+        this.getPositions();
+      })
+    });
   }
 
   openDialog(id?: number){
-    this.dialog.open(PositionDetail, {
+    const dialogRef = this.dialog.open(PositionDetail, {
       width: '750px',
       data:{
         id
       }
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getPositions();
+      }
+    });
   }
 }

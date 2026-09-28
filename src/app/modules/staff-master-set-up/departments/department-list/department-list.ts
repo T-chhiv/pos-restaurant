@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DepartmentService } from '../../../../services/employee-setup-services/department-service';
 import { MatPaginator } from '@angular/material/paginator';
 import { DepartmentDetail } from '../department-detail/department-detail';
+import { DeleteConfirmationService } from '../../../../services/Delete-confirmation-service/delete-confirmation-service';
 
 @Component({
   selector: 'app-department-list',
@@ -34,7 +35,8 @@ export class DepartmentList implements OnInit{
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private deleteConfirmationService: DeleteConfirmationService
   ){}
 
   ngOnInit(): void {
@@ -72,19 +74,36 @@ export class DepartmentList implements OnInit{
     this.dataSource.data = filteredItem;
   }
 
-  remove(id: number){
-    this.departmentService.delete(id).subscribe( res => {
-      this.loadDepartment();
-    })
+  remove(id: number): void {
+    this.deleteConfirmationService.confirm({
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this item?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (!confirmed) {
+        return;
+      }
+
+      this.departmentService.delete(id).subscribe( res => {
+        this.loadDepartment();
+      })
+    });
   }
 
   openDialog(id?: number){
-    this.dialog.open(DepartmentDetail, {
+    const dialogRef = this.dialog.open(DepartmentDetail, {
       width: '650px',
       data:{
         id
       }
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadDepartment();
+      }
+    });
   }
 }
 

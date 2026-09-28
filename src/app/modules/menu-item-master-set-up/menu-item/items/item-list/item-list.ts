@@ -19,6 +19,7 @@ import { IngredientService } from '../../../../../services/menu-items-services/i
 import { UnitService } from '../../../../../services/unit-category & unit services/unit-service';
 import { Unit } from '../../../../../models/unit-model';
 import { Ingredient } from '../../../../../models/ingredient-model';
+import { DeleteConfirmationService } from '../../../../../services/Delete-confirmation-service/delete-confirmation-service';
 
 @Component({
   selector: 'app-item-list',
@@ -102,7 +103,8 @@ export class ItemList implements OnInit, AfterViewInit {
     private menuItemService: MenuItemService,
     private ingredientService: IngredientService,
     private unitService: UnitService,
-    private menuItemCategoryService: MenuItemCategoryService
+    private menuItemCategoryService: MenuItemCategoryService,
+    private deleteConfirmationService: DeleteConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -232,8 +234,19 @@ export class ItemList implements OnInit, AfterViewInit {
   }
 
   remove(id: number): void {
-    this.menuItemService.delete(id).subscribe(() => {
-      this.loadMenuItem();
+    this.deleteConfirmationService.confirm({
+      title: 'Delete Record',
+      message: 'Are you sure you want to delete this item?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe(confirmed => {
+      if (!confirmed) {
+        return;
+      }
+
+      this.menuItemService.delete(id).subscribe(() => {
+        this.loadMenuItem();
+      });
     });
   }
 
