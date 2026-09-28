@@ -1,0 +1,232 @@
+<section>
+    <div class="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <div class="shrink-0">
+            <h2 class="title text-xl font-semibold">Menu Item List</h2>
+            <p class="text-sm" style="color: var(--text-muted)">
+                Manage restaurant menu items
+            </p>
+        </div>
+
+        <form [formGroup]="form" class="flex flex-1 flex-col gap-2 sm:flex-row lg:mx-6 lg:max-w-2xl">
+            <mat-form-field appearance="outline" class="w-full sm:flex-1">
+                <mat-label>Search menu item</mat-label>
+                <input matInput formControlName="name" placeholder="Search by name">
+                <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full sm:w-52">
+                <mat-label>Category</mat-label>
+
+                <mat-select formControlName="menuCategoryId">
+                    <mat-option [value]="null">All Categories</mat-option>
+
+                    @for (category of menuItemCategories; track category.id) {
+                        <mat-option [value]="category.id">
+                            {{ category.name }}
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </form>
+
+        <button mat-flat-button class="add-button shrink-0" type="button" (click)="openDialog()">
+            <mat-icon>add</mat-icon>
+            Add Item
+        </button>
+    </div>
+
+    <mat-card class="w-full">
+        <div class="w-full overflow-x-auto">
+            <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="w-full menu-table">
+
+                <ng-container matColumnDef="no">
+                    <th mat-header-cell *matHeaderCellDef class="w-16">No.</th>
+                    <td mat-cell *matCellDef="let item; let i = dataIndex">
+                        <div class="flex items-center gap-1">
+                            <mat-icon
+                                class="expand-icon"
+                                [@rotateIcon]="isExpanded(item) ? 'expanded' : 'collapsed'">
+                                keyboard_arrow_right
+                            </mat-icon>
+                            <span>{{ i + 1 }}</span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="image">
+                    <th mat-header-cell *matHeaderCellDef>Image</th>
+                    <td mat-cell *matCellDef="let item">
+                        <img
+                            [src]="item.image || 'assets/images/photo.png'"
+                            class="size-9 rounded-full object-cover">
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="line-clamp-1">{{ item.description }}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="menuCategory">
+                    <th mat-header-cell *matHeaderCellDef>Category</th>
+                    <td mat-cell *matCellDef="let item">
+                        {{ getCategoryName(item.menuCategoryId) }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="itemType">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="item-type">{{ item.itemType }}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="priceAndCost">
+                    <th mat-header-cell *matHeaderCellDef>Price / Cost</th>
+                    <td mat-cell *matCellDef="let item">
+                        <div class="flex flex-col">
+                            <span class="font-medium">
+                                ${{ item.price | number:'1.2-2' }}
+                            </span>
+                            <span class="text-xs" style="color: var(--text-muted)">
+                                Cost: ${{ item.cost | number:'1.2-2' }}
+                            </span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span
+                            class="status"
+                            [class.status-active]="item.status"
+                            [class.status-inactive]="!item.status">
+                            {{ item.status ? 'Active' : 'Inactive' }}
+                        </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let item">
+                        <div class="flex gap-1">
+                            <button
+                                mat-icon-button
+                                class="edit-button"
+                                (click)="$event.stopPropagation(); openDialog(item.id)"
+                                matTooltip="Edit">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+
+                            <button
+                                mat-icon-button
+                                class="delete-button"
+                                (click)="$event.stopPropagation(); remove(item.id)"
+                                matTooltip="Delete">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="expandedDetail">
+                    <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
+                        <div
+                            class="element-detail"
+                            [@detailExpand]="isExpanded(item) ? 'expanded' : 'collapsed'">
+                            <div class="detail-container">
+                                <div class="detail-header">
+                                    <div>
+                                        <h3 class="detail-title">Ingredients</h3>
+                                        <p class="detail-description">
+                                            Ingredients used for {{ item.name }}
+                                        </p>
+                                    </div>
+                                    <span class="ingredient-count">
+                                        {{ item.ingredients?.length || 0 }} ingredients
+                                    </span>
+                                </div>
+
+                                @if (item.ingredients?.length) {
+                                    <table mat-table [dataSource]="item.ingredients" class="ingredient-table w-full">
+                                        <ng-container matColumnDef="no">
+                                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                                            <td mat-cell *matCellDef="let ingredient; let i = index">
+                                                {{ i + 1 }}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="image">
+                                            <th mat-header-cell *matHeaderCellDef>Image</th>
+                                            <td mat-cell *matCellDef="let ingredient">
+                                                <img
+                                                    [src]="getIngredientImageById(ingredient.ingredientId) || 'assets/images/photo.png'"
+                                                    class="size-9 rounded-full object-cover">
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="ingredient">
+                                            <th mat-header-cell *matHeaderCellDef>Ingredient</th>
+                                            <td mat-cell *matCellDef="let ingredient">
+                                                {{ getIngredientNameById(ingredient.ingredientId) }}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="quantity">
+                                            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                                            <td mat-cell *matCellDef="let ingredient">
+                                                {{ ingredient.quantity }} {{ getUnitNameById(ingredient.unitId) }}
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="ingredientColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: ingredientColumns"></tr>
+                                    </table>
+                                } @else {
+                                    <div class="no-ingredients">
+                                        No ingredients found.
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                <tr
+                    mat-row
+                    *matRowDef="let item; columns: displayedColumns; let i = dataIndex"
+                    class="element-row"
+                    [class.even-row]="i % 2 !== 0"
+                    [class.odd-row]="i % 2 === 0"
+                    [class.expanded-row]="isExpanded(item)"
+                    (click)="toggleRow(item)">
+                </tr>
+
+                <tr
+                    mat-row
+                    *matRowDef="let item; columns: ['expandedDetail']; let i = dataIndex"
+                    class="detail-row"
+                    [class.even-detail-row]="i % 2 !== 0"
+                    [class.odd-detail-row]="i % 2 === 0"
+                    [class.expanded-detail-row]="isExpanded(item)">
+                </tr>
+            </table>
+
+            <mat-paginator
+                showFirstLastButtons
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions">
+            </mat-paginator>
+        </div>
+    </mat-card>
+</section>

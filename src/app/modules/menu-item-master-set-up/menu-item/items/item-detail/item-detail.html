@@ -1,0 +1,228 @@
+<section class="dialog-container flex max-h-[90vh] flex-col p-[16px]">
+
+    <div class="dialog-header mb-[16px] flex shrink-0 items-center justify-between">
+        <h2 class="title text-xl font-semibold">{{ id ? 'Edit' : 'Create' }}</h2>
+
+        <button
+            type="button"
+            mat-icon-button
+            class="add-button !h-14 !w-14 shrink-0 border-[1px]"
+            matTooltip="Close"
+            (click)="closeDialog()"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-content min-h-0 flex-1 overflow-y-auto pr-[4px]">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="flex flex-col items-center gap-[12px]">
+                <div class="mt-[12px] flex flex-col items-center justify-center gap-[12px]">
+                    <img
+                        [src]="currentIngredientPhotoLink() || 'images/upload-image.jpg'"
+                        alt="Ingredient Photo"
+                        class="h-30 w-30 rounded-full border-3 border-[var(--primary-teal)] object-cover"
+                    />
+                </div>
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Image Link</mat-label>
+                    <input
+                        matInput
+                        type="url"
+                        formControlName="image"
+                        placeholder="Photo Link"
+                        required
+                    />
+                    <mat-hint>Enter the image URL</mat-hint>
+
+                    @if (
+                        form.get('image')?.hasError('required') &&
+                        form.get('image')?.touched
+                    ) {
+                        <mat-error>
+                            Image link is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <!-- Name + Status -->
+            <div class="flex flex-row items-start gap-[12px] sm:items-center">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Name" required />
+                    @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
+                        <mat-error>Name is required</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-slide-toggle formControlName="status" color="primary" class="shrink-0 sm:mb-[20px]">
+                    Status
+                </mat-slide-toggle>
+            </div>
+
+            <!-- Category + Item Type -->
+            <div class="flex flex-col items-start gap-[12px] sm:flex-row sm:items-center">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="menuCategoryId">
+                        @for (category of menuCategories(); track category.id) {
+                            <mat-option [value]="category.id">{{ category.name }}</mat-option>
+                        }
+                    </mat-select>
+                    @if (form.get('menuCategoryId')?.hasError('required') && form.get('menuCategoryId')?.touched) {
+                        <mat-error>Category is required</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Item Type</mat-label>
+                    <input matInput type="text" formControlName="itemType" placeholder="Item Type" required />
+                    @if (form.get('itemType')?.hasError('required') && form.get('itemType')?.touched) {
+                        <mat-error>Item Type is required</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <!-- Price + Cost -->
+            <div class="flex flex-col items-start gap-[12px] sm:flex-row sm:items-center">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Price</mat-label>
+                    <input matInput type="number" formControlName="price" placeholder="Price" required />
+                    @if (form.get('price')?.hasError('required') && form.get('price')?.touched) {
+                        <mat-error>Price is required</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Cost</mat-label>
+                    <input matInput type="number" formControlName="cost" placeholder="Cost" required />
+                    @if (form.get('cost')?.hasError('required') && form.get('cost')?.touched) {
+                        <mat-error>Cost is required</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <!-- Ingredients -->
+            <div class="mb-[12px]">
+                <div class="mb-[12px] flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-semibold">Ingredients</h3>
+                        <p class="text-sm text-gray-500">Add ingredients used for this menu item</p>
+                    </div>
+
+                    <button type="button" mat-icon-button color="primary" matTooltip="Add ingredient" (click)="addIngredient()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+
+                <div formArrayName="ingredients" class="flex flex-col gap-[8px]">
+                    @for (ingredient of ingredients.controls; track ingredient; let i = $index) {
+                        <div [formGroupName]="i" class="flex flex-col items-start gap-[8px] sm:flex-row sm:items-center">
+
+                            <!-- Ingredient -->
+                            <mat-form-field appearance="outline" class="w-full">
+                                <mat-label>Ingredient</mat-label>
+
+                                @if (getSelectedIngredient(i); as selectedIngredient) {
+                                    <div class="absolute inset-0 z-10 flex items-center px-2">
+                                        <mat-chip-row [removable]="true" (removed)="removeIngredientChip(i)" class="!w-fit">
+                                            <div class="flex items-center">
+                                                <img
+                                                    [src]="selectedIngredient.photo"
+                                                    [alt]="selectedIngredient.name"
+                                                    class="mr-1 h-6 w-6 rounded-full object-cover"
+                                                />
+                                                <span>{{ selectedIngredient.name }}</span>
+                                            </div>
+
+                                            <button type="button" matChipRemove (click)="removeIngredientChip(i)">
+                                                <mat-icon>cancel</mat-icon>
+                                            </button>
+                                        </mat-chip-row>
+                                    </div>
+                                }
+
+                                <input
+                                    matInput
+                                    placeholder="Search ingredient..."
+                                    [formControl]="ingredientSearchControls[i]"
+                                    [matAutocomplete]="ingredientAuto"
+                                    [class.opacity-0]="getSelectedIngredient(i)"
+                                    [class.pointer-events-none]="getSelectedIngredient(i)"
+                                />
+
+                                <mat-autocomplete
+                                    #ingredientAuto="matAutocomplete"
+                                    [displayWith]="displayIngredient"
+                                    (optionSelected)="selectIngredient(i, $event.option.value)"
+                                >
+                                    @for (item of getFilteredIngredients(i); track item.id) {
+                                        <mat-option [value]="item">
+                                            <div class="flex items-center gap-2">
+                                                <img [src]="item.photo" [alt]="item.name" class="h-8 w-8 rounded-full object-cover" />
+                                                <span>{{ item.name }}</span>
+                                            </div>
+                                        </mat-option>
+                                    }
+                                </mat-autocomplete>
+
+                                @if (ingredient.get('ingredientId')?.hasError('required') && ingredient.get('ingredientId')?.touched) {
+                                    <mat-error>Ingredient is required</mat-error>
+                                }
+                            </mat-form-field>
+
+                            <!-- Quantity -->
+                            <mat-form-field appearance="outline" class="w-full sm:w-[150px]">
+                                <mat-label>Quantity</mat-label>
+                                <input matInput type="number" formControlName="quantity" placeholder="Quantity" />
+                                @if (ingredient.get('quantity')?.hasError('required') && ingredient.get('quantity')?.touched) {
+                                    <mat-error>Required</mat-error>
+                                }
+                            </mat-form-field>
+
+                            <!-- Unit -->
+                            <mat-form-field appearance="outline" class="w-full sm:w-[150px]">
+                                <mat-label>Unit</mat-label>
+                                <mat-select formControlName="unitId">
+                                    @for (unit of units(); track unit.id) {
+                                        <mat-option [value]="unit.id">{{ unit.symbol }}</mat-option>
+                                    }
+                                </mat-select>
+                                @if (ingredient.get('unitId')?.hasError('required') && ingredient.get('unitId')?.touched) {
+                                    <mat-error>Required</mat-error>
+                                }
+                            </mat-form-field>
+
+                            <button
+                                type="button"
+                                mat-icon-button
+                                color="warn"
+                                matTooltip="Remove ingredient"
+                                class="shrink-0 sm:mb-[20px]"
+                                (click)="removeIngredient(i)"
+                            >
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Description -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" placeholder="Description" rows="4"></textarea>
+            </mat-form-field>
+
+            <!-- Actions -->
+            <div class="flex justify-end gap-[8px] pb-[4px]">
+                <button type="button" mat-stroked-button (click)="closeDialog()">Cancel</button>
+                <button type="submit" mat-flat-button color="primary">{{ id ? 'Update' : 'Create' }}</button>
+            </div>
+
+        </form>
+    </div>
+</section>

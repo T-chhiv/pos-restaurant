@@ -1,0 +1,227 @@
+:host {
+  --primary-teal: #f59e0b;
+  --light-teal: #fff7ed;
+  --bg-gray: #f8fafc;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+}
+
+.title {
+  color: var(--primary-teal) !important;
+}
+
+.add-button {
+  color: var(--mat-sys-primary);
+}
+
+/* Main Table */
+
+.mat-mdc-table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  background: white;
+}
+
+.mat-mdc-header-cell {
+  color: var(--text-dark);
+  background: var(--bg-gray);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mat-mdc-cell {
+  color: var(--text-dark);
+  border-bottom-color: var(--border-color);
+}
+
+/* Main Row */
+
+.element-row {
+  cursor: pointer;
+}
+
+.element-row:hover > td {
+  background: var(--light-teal) !important;
+}
+
+tr.even-row > td {
+  background: #f8fafc;
+}
+
+tr.expanded-row > td {
+  background: var(--light-teal) !important;
+}
+
+tr.even-row:not(.expanded-row) > td:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+tr.even-row:not(.expanded-row) > td:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+/* Expand Icon */
+
+.expand-icon {
+  color: var(--primary-teal);
+  transition: transform 300ms ease;
+}
+
+/* Item Type */
+
+.item-type {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--light-teal);
+  color: var(--primary-teal);
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+/* Status */
+
+.status {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-inactive {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Actions */
+
+.edit-button {
+  color: var(--primary-teal);
+}
+
+.delete-button {
+  color: #dc2626;
+}
+
+/* Expanded Row */
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.detail-row > td {
+  padding: 0 !important;
+  border: none !important;
+}
+
+.element-detail {
+  display: block;
+  overflow: hidden;
+}
+
+.detail-container {
+  padding: 16px;
+  background: var(--light-teal);
+}
+
+/* Child Header */
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.detail-title {
+  margin: 0;
+  color: var(--primary-teal);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.detail-description {
+  margin: 3px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.ingredient-count {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: white;
+  color: var(--primary-teal);
+  font-size: 12px;
+  border: 1px solid var(--border-color);
+}
+
+/* Ingredient Table */
+
+.ingredient-table {
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.ingredient-table .mat-mdc-header-cell {
+  background: var(--light-teal);
+  color: var(--text-dark);
+}
+
+.ingredient-table .mat-mdc-cell {
+  background: white;
+  color: var(--text-dark);
+}
+
+.ingredient-table .mat-mdc-row:hover .mat-mdc-cell {
+  background: var(--bg-gray);
+}
+
+/* No Ingredients */
+
+.no-ingredients {
+  padding: 24px;
+  color: var(--text-muted);
+  text-align: center;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+/* Material */
+
+:host ::ng-deep {
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: none;
+  }
+
+  .mat-mdc-paginator {
+    color: var(--text-muted);
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .detail-container {
+    padding: 12px;
+  }
+
+  .detail-header {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    white-space: nowrap;
+  }
+}
